@@ -1,6 +1,0 @@
-framework module EZOnlineScorerRecorder {
-   umbrella header "EZOnlineScorerRecorder-umbrella.h"
-
-   export *
-   module * { export * }
-}

@@ -85,9 +85,9 @@ static NSURL *_socketURL;
     });
 }
 
-+ (void)setSocketURL:(NSURL *)recordURL
++ (void)setSocketURL:(NSURL *)socketURL
 {
-    _socketURL = [_socketURL copy];
+    _socketURL = [socketURL copy];
 }
 
 #pragma mark - initializer
