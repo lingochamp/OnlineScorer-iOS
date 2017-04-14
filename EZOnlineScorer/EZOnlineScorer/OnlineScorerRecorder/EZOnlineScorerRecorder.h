@@ -46,7 +46,7 @@ typedef NS_ENUM(NSUInteger, EZOnlineScorerRecorderError) {
 
 //only first call to this method has effect.
 + (void)configureAppID:(NSString * _Nonnull)appID secret:(NSString * _Nonnull)secret;
-+ (void)setSocketURL:(NSURL * _Nonnull)recordURL;
++ (void)setSocketURL:(NSURL * _Nonnull)socketURL;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wnullability"
