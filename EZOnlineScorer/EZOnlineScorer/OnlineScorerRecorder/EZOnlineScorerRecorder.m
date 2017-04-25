@@ -133,7 +133,7 @@ static NSURL *_socketURL;
         return _socketURL;
     }
     //return default URL
-    return [NSURL URLWithString:@"wss://rating.llsstaging.com/openapi/stream/upload"];
+    return [NSURL URLWithString:@"wss://openapi.llsapp.com/openapi/stream/upload"];
 }
 
 #pragma mark - Configuring and Controlling Scoring
