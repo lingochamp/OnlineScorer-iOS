@@ -52,6 +52,8 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
 @property (nonnull, nonatomic, strong) EZSpeexManager *speexManager;
 @property (nonatomic, assign) BOOL readyToClose;
 @property (nonatomic, assign) BOOL messageSent;
+@property (nonatomic, assign) BOOL metaSent;
+@property (nonatomic, assign) BOOL allDataReceived;
 @property (nonnull, nonatomic, strong) NSMutableData *audioBuffer;
 
 @end
@@ -62,7 +64,9 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
 - (void)dealloc
 {
     [self closeImmediately];
+#if DEBUG
     NSLog(@"AudioSocket dealloc");
+#endif
 }
 
 - (instancetype _Nonnull)initWithSocketURL:(NSURL * _Nonnull)socketURL metaData:(NSData * _Nonnull)metaData useSpeex:(BOOL)useSpeex
@@ -102,6 +106,7 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
 /// send end of stream to server and wait for response
 - (void)close
 {
+    self.allDataReceived = YES;
     [self sendEndOfStream];
 }
 
@@ -115,7 +120,6 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
 - (void)sendPendingData
 {
     if (self.webSocket.readyState != SR_OPEN) return;
-    
     
     if (self.useSpeex) {
         [self.speexManager appendPcmData:self.audioBuffer];
@@ -143,11 +147,12 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
     //meta
     [metaData appendData:base64Data];
     [self.webSocket send:metaData];
+    self.metaSent = YES;
 }
 
 - (void)sendEndOfStream
 {
-    if (self.readyToClose) return;
+    if (!self.metaSent || self.readyToClose) return;
     
     [self sendPendingData];
     self.readyToClose = YES;
@@ -270,7 +275,11 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
 - (void)webSocketDidOpen:(EZSRWebSocket *)webSocket
 {
     [self sendMetaData];
-    [self sendPendingData];
+    if (self.allDataReceived) {
+        [self sendEndOfStream];
+    } else {
+        [self sendPendingData];
+    }
 }
 
 - (void)webSocket:(EZSRWebSocket *)webSocket didReceiveMessage:(id)message
@@ -283,15 +292,16 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
 
 - (void)webSocket:(EZSRWebSocket *)webSocket didFailWithError:(NSError *)error
 {
-    if (self.readyToClose) {
-        [self.delegate audioSocket:self didFailWithError:errorForAudioSocketErrorCode(EZAudioSocketErrorConnectionError, error)];
-    }
+    self.readyToClose = YES;
+    [self.delegate audioSocket:self didFailWithError:errorForAudioSocketErrorCode(EZAudioSocketErrorConnectionError, error)];
 }
 
 - (void)webSocket:(EZSRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean
 {
     self.readyToClose = YES;
+#if DEBUG
     NSLog(@"webSocket closed with code: %zd reason: %@ wasClean: %i", code, reason, wasClean);
+#endif
 }
 
 @end

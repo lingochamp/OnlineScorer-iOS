@@ -40,6 +40,7 @@ typedef enum
 @property (nonatomic, readonly, assign) CGFloat currentPlayDuration;
 @property (nonatomic) BOOL enableLimitDuration;
 
+///EZAudioReader are intended for one-time-use only. -recordToFileURL: should be called once and only once.
 - (void)recordToFileURL:(NSURL * _Nonnull)fileURL;
 - (void)stop;
 

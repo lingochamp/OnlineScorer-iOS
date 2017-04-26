@@ -183,8 +183,9 @@ static void WritePacketTableInfo(AudioConverterRef converter, AudioFileID destin
                 // there's priming to write out to the file
                 UInt64 totalFrames = pti.mNumberValidFrames + pti.mPrimingFrames + pti.mRemainderFrames;
                 // get the total number of frames from the output file
+#if DEBUG
                 NSLog(@"Total number of frames from output file: %lld\n", totalFrames);
-                
+#endif
                 pti.mPrimingFrames = primeInfo.leadingFrames;
                 pti.mRemainderFrames = primeInfo.trailingFrames;
                 pti.mNumberValidFrames = totalFrames - pti.mPrimingFrames - pti.mRemainderFrames;
@@ -194,6 +195,7 @@ static void WritePacketTableInfo(AudioConverterRef converter, AudioFileID destin
                                              sizeof(pti),
                                              &pti);
                 
+#if DEBUG
                 if (noErr == error)
                 {
                     NSLog(@"Writing packet table information to destination file: %ld\n", sizeof(pti));
@@ -205,21 +207,28 @@ static void WritePacketTableInfo(AudioConverterRef converter, AudioFileID destin
                 {
                     NSLog(@"Some audio files can't contain packet table information and that's OK\n");
                 }
+#endif
             }
+#if DEBUG
             else
             {
                 NSLog(@"Getting kAudioFilePropertyPacketTableInfo error: %d\n", (int)error);
             }
+#endif
         }
+#if DEBUG
         else
         {
             NSLog(@"No kAudioConverterPrimeInfo available and that's OK\n");
         }
+#endif
     }
+#if DEBUG
     else
     {
         NSLog(@"GetPropertyInfo for kAudioFilePropertyPacketTableInfo error: %d, isWritable: %u\n", (int)error, (unsigned int)isWritable);
     }
+#endif
 }
 
 static void WriteCookie(AudioConverterRef converter, AudioFileID destinationFileID)
@@ -255,8 +264,9 @@ static void WriteCookie(AudioConverterRef converter, AudioFileID destinationFile
 static OSStatus EncoderDataProc(AudioConverterRef inAudioConverter, UInt32 *ioNumberDataPackets, AudioBufferList *ioData, AudioStreamPacketDescription **outDataPacketDescription, void *inUserData)
 {
     EZAudioReaderState *pAqData = (EZAudioReaderState *)inUserData;
-    NSLog(@"ask ioNumberDataPackets %u", (unsigned int)*ioNumberDataPackets);
-    
+#if DEBUG
+//    NSLog(@"ask ioNumberDataPackets %u", (unsigned int)*ioNumberDataPackets);
+#endif
     // put the data pointer into the buffer list
     if (*ioNumberDataPackets > kMaxNumInputPackets)
     {
@@ -278,9 +288,9 @@ static OSStatus EncoderDataProc(AudioConverterRef inAudioConverter, UInt32 *ioNu
     
     ioData->mBuffers[0].mNumberChannels = 1;
     pAqData->mCurrenBufferIsUsed = true;
-    
-    NSLog(@"got ioNumberDataPackets %u", (unsigned int)*ioNumberDataPackets);
-    
+#if DEBUG
+//    NSLog(@"got ioNumberDataPackets %u", (unsigned int)*ioNumberDataPackets);
+#endif
     if (outDataPacketDescription)
     {
         if (/* DISABLES CODE */ (0))   //pAqData->mOutputPacketDescriptions) {
@@ -344,6 +354,7 @@ static void HandleInputBuffer(void *aqData, AudioQueueRef inAQ, AudioQueueBuffer
                                     pAqData->mOutputPacketDescriptions);
     
     // if interrupted in the process of the conversion call, we must handle the error appropriately
+#if DEBUG
     if (error)
     {
         if (kAudioConverterErr_HardwareInUse == error)
@@ -358,6 +369,7 @@ static void HandleInputBuffer(void *aqData, AudioQueueRef inAQ, AudioQueueBuffer
     {
         NSLog(@"Zero output data packets");
     }
+#endif
     
     if (pAqData->mAudioFileIsSet &&
         AudioFileWritePackets(pAqData->mAudioFile,
@@ -370,10 +382,12 @@ static void HandleInputBuffer(void *aqData, AudioQueueRef inAQ, AudioQueueBuffer
     {
         pAqData->mCurrentPacket += ioOutputDataPackets;
     }
+#if DEBUG
     else
     {
         NSLog(@"Write file error");
     }
+#endif
     
     if (pAqData->mIsRunning)
     {
@@ -386,6 +400,9 @@ static void HandleInputBuffer(void *aqData, AudioQueueRef inAQ, AudioQueueBuffer
 {
     free(_state.mOutputBuffer);
     AudioQueueDispose(_state.mQueue, true);
+#if DEBUG
+    NSLog(@"EZAudioReader dealloc");
+#endif
 }
 
 - (void)handleError:(NSError *)error
@@ -658,20 +675,6 @@ static void HandleInputBuffer(void *aqData, AudioQueueRef inAQ, AudioQueueBuffer
     {
         [[self delegate] engzoAudioRecorderDidStop:self];
     }
-    
-//    if (self.scorer)
-//    {
-//        _isReady = YES;
-//        [self.scorer endScoringWithCompletion:^{
-//            [self.scorer generateScoreReportWithCompletion:^(NSDictionary *report, NSError *error) {
-//                _isReady = NO;
-//                if ([[self delegate] respondsToSelector:@selector(engzoAudioRecorderDidGenerateReport:error:)])
-//                {
-//                    [[self delegate] engzoAudioRecorderDidGenerateReport:report error:error];
-//                }
-//            }];
-//        }];
-//    }
 }
 
 - (void)stopWithLimitDuration
