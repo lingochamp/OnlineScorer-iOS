@@ -20,11 +20,23 @@ typedef NS_ENUM(NSUInteger, EZOnlineScorerRecorderError) {
 
 @class EZOnlineScorerRecorder;
 
+/**
+ EZOnlineScorerRecorder delegate protocol. All method are optional. 
+ 
+ Note that only -onlineScorer:didVolumnChange: promise to be called on main thread.
+ */
 @protocol EZOnlineScorerRecorderDelegate <NSObject>
 
 @optional
 - (void)onlineScorerDidBeginReading:(EZOnlineScorerRecorder * _Nonnull)reader;
-//this method is always called on main thread
+
+/**
+ -onlineScorer:didVolumnChange: is always called on main thread.
+
+ @param reader The method caller EZOnlineScorerRecorder object
+ @param volumn A float value calculated form microphone db level, varying from 0 to 1,
+ usually used to show recording animation.
+ */
 - (void)onlineScorer:(EZOnlineScorerRecorder * _Nonnull)reader didVolumnChange:(float)volumn;
 - (void)onlineScorerDidStop:(EZOnlineScorerRecorder * _Nonnull)reader;
 - (void)onlineScorer:(EZOnlineScorerRecorder * _Nonnull)audioSocket didGenerateReport:(NSDictionary *_Nonnull)report;
@@ -32,6 +44,12 @@ typedef NS_ENUM(NSUInteger, EZOnlineScorerRecorderError) {
 
 @end
 
+
+/**
+ Main class for EZOnlineScorer.
+ Use multiple EZOnlineScorerRecorder at once is DISALLOWED. It may cause serious memory issue
+ and could crash your app.
+ */
 @interface EZOnlineScorerRecorder : NSObject
 
 @property (nonnull, readonly, nonatomic) NSURL *socketURL;
@@ -53,32 +71,63 @@ typedef NS_ENUM(NSUInteger, EZOnlineScorerRecorderError) {
 - (instancetype _Nullable) init NS_UNAVAILABLE;
 #pragma clang diagnostic pop
 
-//EZOnlineScorerRecorder will not init if appID or secret not set.
+
+/**
+ Designed initializer of EZOnlineScorerRecorder.
+ 
+ Note: Use multiple EZOnlineScorerRecorder at once is DISALLOWED. It may cause serious memory issue
+ and could crash your app.
+ 
+ @param payload An object confirm to EZOnlineScorerRecorderPayload protocol, which provide scorer catrgory info.
+ @param useSpeex Indicate whether use speex to compress audio data
+ @return An EZOnlineScorerRecorder object. EZOnlineScorerRecorder will not init if appID or secret is not set.
+ */
 - (instancetype _Nullable)initWithPayload:(id<EZOnlineScorerRecorderPayload> _Nonnull)payload
                                  useSpeex:(BOOL)useSpeex;
 
-//same as -initWithPayload:useSpeex: but use speex by default
+/**
+ Convenience initializer of EZOnlineScorerRecorder. Same as -initWithPayload:useSpeex: but use speex by default.
+
+ @param payload An object confirm to EZOnlineScorerRecorderPayload protocol, which provide scorer catrgory info.
+ @return An EZOnlineScorerRecorder object. EZOnlineScorerRecorder will not init if appID or secret is not set.
+ */
 - (instancetype _Nullable)initWithPayload:(id<EZOnlineScorerRecorderPayload> _Nonnull)payload;
 
 /**
- record to given location. must set AVAudioSession to currect category (Record or PlayAndRecord)
- and activate AVAudioSession before call this function. Note that you need to request record 
- permission before setup AVAudioSession.
+ Record to given location. must set AVAudioSession to currect category (Record or PlayAndRecord)
+ and activate AVAudioSession before call this function. 
+ 
+ Note: that you need to request permission before setup AVAudioSession.
+ 
+ Note: EZOnlineScorerRecorder are intended for one-time-use only. -recordToURL: should be called once and only once.
 
  @param fileURL Destination record URL. Record file format is aac.
  */
 - (void)recordToURL:(NSURL * _Nonnull)fileURL;
 
 /**
- record file to a temporary location. 
- @see recordToURL:
+ Record file to a temporary location.
+ 
+ @see -recordToURL:
  */
 - (void)record;
 
-//finish recording and wait for response
+/**
+ Finish recording and wait for response
+ */
 - (void)stopRecording;
 
-//close connection and disposal all resource. Will stop recording if is recording.
+/**
+ Close connection and disposal all resource. Will stop recording if is recording. Call -stopScoring will mark
+ EZOnlineScorerRecorder disposal, and any following method call will fail silently.
+ */
 - (void)stopScoring;
+
+/**
+ In case of record success but online scoring failed, call this method and EZOnlineScorerRecorder 
+ will resend audio to server for scoring. Calling this method will dispose current scoring connection(if any).
+ You should decide whether to retry according to error message you received.
+ */
+- (void)retry;
 
 @end

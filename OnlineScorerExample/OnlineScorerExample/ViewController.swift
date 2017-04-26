@@ -12,19 +12,27 @@ import EZOnlineScorer
 
 class ViewController: UIViewController {
     
+    lazy var tableView: UITableView = UITableView(frame: .zero, style: .grouped)
+    
     var recordURL: URL {
         return URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent("testAudio.aac", isDirectory: false)
     }
     
-    lazy var recordButton: UIButton = UIButton(type: .system)
-    lazy var playButton: UIButton = UIButton(type: .system)
-    lazy var speexButton: UIButton = UIButton(type: .system)
-    lazy var volumeLabel: UILabel = UILabel()
-    lazy var referenceTextField: UITextField = UITextField()
     lazy var configureButton: UIButton = UIButton(type: .system)
-    lazy var reportTextView: UITextView = UITextView()
     
-    let defaultReadAloadText = "I will study English very hard."
+    static let defaultReadAloadText = "I will study English very hard."
+    var readAloadText = ViewController.defaultReadAloadText {
+        didSet {
+            tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+        }
+    }
+    var reportDescription = "" {
+        didSet {
+            tableView.reloadRows(at: [IndexPath(row: 0, section: 2)], with: .none)
+        }
+    }
+    let cellReuseIdentifier = "UITableViewCell"
+    var useSpeex = true
     var scorer: EZOnlineScorerRecorder?
     var player: AVPlayer?
     
@@ -40,102 +48,36 @@ class ViewController: UIViewController {
                                               toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
         view.addConstraint(NSLayoutConstraint(item: configureButton, attribute: .centerY, relatedBy: .equal,
                                               toItem: view, attribute: .centerY, multiplier: 1, constant: 0))
-
     }
     
     func setupRecordUI()
     {
         configureButton.removeFromSuperview()
         
-        view.addSubview(referenceTextField)
-        referenceTextField.borderStyle = .line
-        referenceTextField.placeholder = "Enter read text here"
-        referenceTextField.text = defaultReadAloadText
-        referenceTextField.translatesAutoresizingMaskIntoConstraints = false
-        view.addConstraint(NSLayoutConstraint(item: referenceTextField, attribute: .centerX, relatedBy: .equal,
-                                              toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: referenceTextField, attribute: .centerY, relatedBy: .equal,
-                                              toItem: view, attribute: .centerY, multiplier: 1, constant: -40))
-
-        view.addSubview(recordButton)
-        recordButton.addTarget(self, action: #selector(record), for: .touchUpInside)
-        recordButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addConstraint(NSLayoutConstraint(item: recordButton, attribute: .trailing, relatedBy: .equal,
-                                              toItem: view, attribute: .centerX, multiplier: 1, constant: -10))
-        view.addConstraint(NSLayoutConstraint(item: recordButton, attribute: .centerY, relatedBy: .equal,
-                                              toItem: view, attribute: .centerY, multiplier: 1, constant: 0))
-
-        view.addSubview(playButton)
-        playButton.setTitle("播放", for: .normal)
-        playButton.addTarget(self, action: #selector(play), for: .touchUpInside)
-        playButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addConstraint(NSLayoutConstraint(item: playButton, attribute: .leading, relatedBy: .equal,
-                                              toItem: view, attribute: .centerX, multiplier: 1, constant: +10))
-        view.addConstraint(NSLayoutConstraint(item: playButton, attribute: .centerY, relatedBy: .equal,
-                                              toItem: view, attribute: .centerY, multiplier: 1, constant: 0))
-        
-        view.addSubview(speexButton)
-        speexButton.setTitle("speex off", for: .normal)
-        speexButton.setTitle("speex on", for: .selected)
-        speexButton.isSelected = true
-        speexButton.addTarget(self, action: #selector(setSpeex), for: .touchUpInside)
-        speexButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addConstraint(NSLayoutConstraint(item: speexButton, attribute: .centerX, relatedBy: .equal,
-                                              toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: speexButton, attribute: .centerY, relatedBy: .equal,
-                                              toItem: view, attribute: .centerY, multiplier: 1, constant: +40))
-
-        view.addSubview(volumeLabel)
-        volumeLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addConstraint(NSLayoutConstraint(item: volumeLabel, attribute: .centerX, relatedBy: .equal,
-                                              toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: volumeLabel, attribute: .centerY, relatedBy: .equal,
-                                              toItem: view, attribute: .centerY, multiplier: 1, constant: +80))
-        
-        view.addSubview(reportTextView)
-        reportTextView.isEditable = false
-        reportTextView.translatesAutoresizingMaskIntoConstraints = false
-        view.addConstraint(NSLayoutConstraint(item: reportTextView, attribute: .leading, relatedBy: .equal,
-                                              toItem: view, attribute: .leading, multiplier: 1, constant: 10))
-        view.addConstraint(NSLayoutConstraint(item: reportTextView, attribute: .trailing, relatedBy: .equal,
-                                              toItem: view, attribute: .trailing, multiplier: 1, constant: 10))
-        view.addConstraint(NSLayoutConstraint(item: reportTextView, attribute: .bottom, relatedBy: .equal,
-                                              toItem: view, attribute: .bottom, multiplier: 1, constant: 10))
-        view.addConstraint(NSLayoutConstraint(item: reportTextView, attribute: .top, relatedBy: .equal,
-                                              toItem: view, attribute: .centerY, multiplier: 1, constant: 100))
-        
-        updateUI()
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: tableView, attribute: .leading, relatedBy: .equal,
+                                              toItem: view, attribute: .leading, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: tableView, attribute: .trailing, relatedBy: .equal,
+                                              toItem: view, attribute: .trailing, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: tableView, attribute: .top, relatedBy: .equal,
+                                              toItem: view, attribute: .top, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: tableView, attribute: .bottom, relatedBy: .equal,
+                                              toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
-    func updateUI() {
-        if let scorer = scorer {
-            if scorer.isRecording {
-                recordButton.isEnabled = true
-                recordButton.setTitle("结束录音", for: .normal)
-            } else if scorer.isProcessing {
-                recordButton.isEnabled = false
-                recordButton.setTitle("正在接收打分结果", for: .normal)
-            } else {
-                recordButton.isEnabled = true
-                recordButton.setTitle("开始录音", for: .normal)
-            }
-        } else {
-            recordButton.isEnabled = true
-            recordButton.setTitle("开始录音", for: .normal)
-        }
-        
-        reportTextView.text = ""
-    }
-    
-    private func setupScorer() -> EZOnlineScorerRecorder {
+    @discardableResult func setupScorer() -> EZOnlineScorerRecorder {
         //setup scorer
-        if referenceTextField.text?.characters.count == 0
+        if readAloadText.characters.count == 0
         {
-            referenceTextField.text = defaultReadAloadText
+            readAloadText = ViewController.defaultReadAloadText
         }
         
-        let payload = EZReadAloudPayload(referenceText: referenceTextField.text!)
-        let scorer = EZOnlineScorerRecorder(payload: payload, useSpeex: speexButton.isSelected)!
+        reportDescription = ""
+        let payload = EZReadAloudPayload(referenceText: readAloadText)
+        let scorer = EZOnlineScorerRecorder(payload: payload, useSpeex: useSpeex)!
         scorer.delegate = self
         self.scorer = scorer
         return scorer
@@ -181,11 +123,7 @@ class ViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    @objc private func setSpeex() {
-        speexButton.isSelected = !speexButton.isSelected
-    }
-    
-    @objc private func play()
+    func play()
     {
         if scorer?.isRecording == true { return }
         
@@ -205,36 +143,31 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc private func record() {
+    func record() {
         let scorer = self.scorer ?? setupScorer()
         
-        if scorer.isProcessing {
-            if scorer.isRecording {
-                scorer.stopRecording()
-            }
-        } else {
-            AVAudioSession.sharedInstance().requestRecordPermission { [weak self, weak scorer] (success) in
-                DispatchQueue.main.async {
-                    guard let `self` = self else { return }
-                    
-                    if success {
-                        do {
-                            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
-                            try AVAudioSession.sharedInstance().setActive(true)
-                            scorer?.record(to: self.recordURL)
-                        } catch {
-                            let alert = UIAlertController(title: "未能开启录音", message: error.localizedDescription, preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "好的", style: .default, handler: nil))
-                            self.present(alert, animated: true, completion: nil)
-                        }
-                    } else {
-                        let alert = UIAlertController(title: "未能开启录音", message: "请开启录音权限，否则不能录音", preferredStyle: .alert)
+        AVAudioSession.sharedInstance().requestRecordPermission { [weak self, weak scorer] (success) in
+            DispatchQueue.main.async {
+                guard let `self` = self else { return }
+                
+                if success {
+                    do {
+                        try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
+                        try AVAudioSession.sharedInstance().setActive(true)
+                        scorer?.record(to: self.recordURL)
+                    } catch {
+                        let alert = UIAlertController(title: "未能开启录音", message: error.localizedDescription, preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "好的", style: .default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
                     }
+                } else {
+                    let alert = UIAlertController(title: "未能开启录音", message: "请开启录音权限，否则不能录音", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "好的", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                 }
             }
         }
+        
     }
     
 }
@@ -242,13 +175,13 @@ class ViewController: UIViewController {
 extension ViewController: EZOnlineScorerRecorderDelegate {
     func onlineScorerDidBeginReading(_ reader: EZOnlineScorerRecorder) {
         DispatchQueue.main.async { [weak self] in
-            self?.updateUI()
+            self?.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
         }
     }
     
     func onlineScorerDidStop(_ reader: EZOnlineScorerRecorder) {
         DispatchQueue.main.async { [weak self] in
-            self?.updateUI()
+            self?.tableView.reloadRows(at: [IndexPath(row: 1, section: 0), IndexPath(row: 2, section: 0)], with: .none)
         }
     }
     
@@ -256,13 +189,8 @@ extension ViewController: EZOnlineScorerRecorderDelegate {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
             
-            self.updateUI()
-            self.volumeLabel.text = ""
-            self.reportTextView.text = "\(error)"
-            let alert = UIAlertController(title: "打分错误", message: error.localizedDescription, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "好的", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            self.scorer = nil
+            self.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
+            self.reportDescription = "\(error)"
         }
     }
     
@@ -270,16 +198,154 @@ extension ViewController: EZOnlineScorerRecorderDelegate {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
             
-            self.updateUI()
-            self.volumeLabel.text = ""
+            self.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
             let reportData = try! JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted])
             let reportString = String(data: reportData, encoding: .utf8)
-            self.reportTextView.text = reportString
-            self.scorer = nil
+            self.reportDescription = reportString ?? ""
         }
     }
     
     func onlineScorer(_ reader: EZOnlineScorerRecorder, didVolumnChange volumn: Float) {
-        volumeLabel.text = String(format: "音量：%.3f", volumn)
+        if let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) {
+            cell.detailTextLabel?.text = String(format: "%.3f", volumn)
+        }
+    }
+}
+
+extension ViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return 3
+        case 1:
+            return 7
+        case 2:
+            return 1
+        default:
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) ?? UITableViewCell(style: .value1, reuseIdentifier: cellReuseIdentifier)
+        cell.textLabel?.numberOfLines = 0
+        cell.detailTextLabel?.numberOfLines = 0
+        
+        switch (indexPath.section, indexPath.row) {
+        case (0, 0):
+            cell.accessoryType = .none
+            cell.textLabel?.text = readAloadText
+            cell.detailTextLabel?.text = ""
+        case (0, 1):
+            cell.accessoryType = .none
+            cell.textLabel?.text = "volumn"
+            cell.detailTextLabel?.text = ""
+        case (0, 2):
+            cell.accessoryType = .none
+            cell.textLabel?.text = "state"
+            cell.detailTextLabel?.text = {
+                if let scorer = scorer {
+                    if scorer.isRecording {
+                        return "recording"
+                    } else if scorer.isProcessing {
+                        return "receiving result"
+                    } else {
+                        return "finished"
+                    }
+                } else {
+                    return "ready to record"
+                }
+            }()
+        case (1, 0):
+            cell.accessoryType = useSpeex ? .checkmark : .none
+            cell.textLabel?.text = "use speex"
+            cell.detailTextLabel?.text = "only work after reset"
+        case (1, 1):
+            cell.accessoryType = .none
+            cell.textLabel?.text = "record"
+            cell.detailTextLabel?.text = ""
+        case (1, 2):
+            cell.accessoryType = .none
+            cell.textLabel?.text = "stop record"
+            cell.detailTextLabel?.text = ""
+        case (1, 3):
+            cell.accessoryType = .none
+            cell.textLabel?.text = "stop scoring"
+            cell.detailTextLabel?.text = ""
+        case (1, 4):
+            cell.accessoryType = .none
+            cell.textLabel?.text = "retry"
+            cell.detailTextLabel?.text = ""
+        case (1, 5):
+            cell.accessoryType = .none
+            cell.textLabel?.text = "reset scorerRecorder"
+            cell.detailTextLabel?.text = ""
+        case (1, 6):
+            cell.accessoryType = .none
+            cell.textLabel?.text = "play"
+            cell.detailTextLabel?.text = ""
+        case (2, 0):
+            cell.accessoryType = .none
+            cell.textLabel?.text = reportDescription
+            cell.detailTextLabel?.text = ""
+        default:
+            break
+        }
+        return cell
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 2 || (indexPath.section == 0 && indexPath.row == 0) {
+            return UITableViewAutomaticDimension
+        }
+        return 44
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        switch (indexPath.section, indexPath.row) {
+        case (0, 0):
+            let alert = UIAlertController(title: "set spoken test", message: nil, preferredStyle: .alert)
+            alert.addTextField(configurationHandler: nil)
+            alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert, weak self] (_) in
+                guard let textFields = alert?.textFields, textFields.count == 1 else { return }
+                
+                self?.readAloadText = textFields[0].text!
+                self?.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+            }))
+            
+            present(alert, animated: true, completion: nil)
+        case (1, 0):
+            useSpeex = !useSpeex
+            if let cell = tableView.cellForRow(at: indexPath) {
+                cell.accessoryType = useSpeex ? .checkmark : .none
+            }
+        case (1, 1):
+            record()
+        case (1, 2):
+            scorer?.stopRecording()
+        case (1, 3):
+            scorer?.stopScoring()
+        case (1, 4):
+            scorer?.retry()
+            self.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
+        case (1, 5):
+            setupScorer()
+        case (1, 6):
+            play()
+        default:
+            break
+        }
     }
 }
