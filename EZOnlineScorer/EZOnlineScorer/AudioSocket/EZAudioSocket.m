@@ -80,6 +80,15 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
         _webSocket = [[EZSRWebSocket alloc] initWithURL:socketURL];
         _webSocket.delegate = self;
         [_webSocket open];
+        
+        //SR_CONNECTING timeout
+        __weak typeof(self) weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
+            if (weakSelf.webSocket && weakSelf.webSocket.readyState == SR_CONNECTING) {
+                [self.delegate audioSocket:self didFailWithError:errorForAudioSocketErrorCode(EZAudioSocketErrorConnectionError, nil)];
+                [weakSelf closeImmediately];
+            }
+        });
     }
     return self;
 }
