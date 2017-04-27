@@ -18,7 +18,7 @@ NSString *const kEZOnlineScorerRecorderErrorInvalidParameterDescription = @"Onli
 NSString *const kEZOnlineScorerRecorderErrorResponseJSONErrorDescription = @"Online scorer failed to decode response.";
 
 
-static NSError *errorForOnlineScorerErrorCode(EZOnlineScorerRecorderError errorCode, NSError *underlineError) {
+static NSError *errorForOnlineScorerErrorCode(EZOnlineScorerRecorderError errorCode, NSError *underlyingError) {
     NSString *errorDescription;
     switch (errorCode) {
         case EZOnlineScorerRecorderErrorRecorderError:
@@ -36,8 +36,8 @@ static NSError *errorForOnlineScorerErrorCode(EZOnlineScorerRecorderError errorC
     }
     
     NSMutableDictionary *userInfo = [@{NSLocalizedDescriptionKey: errorDescription} mutableCopy];
-    if (underlineError) {
-        userInfo[NSUnderlyingErrorKey] = underlineError;
+    if (underlyingError) {
+        userInfo[NSUnderlyingErrorKey] = underlyingError;
     }
     NSError *error = [NSError errorWithDomain:kEZOnlineScorerRecorderErrorDomain
                                          code:errorCode
@@ -64,6 +64,7 @@ static NSString *md5HexDigest(NSString *input) {
 @property (nullable, nonatomic, strong) EZAudioReader *audioReader;
 @property (readwrite, getter=isProcessing) BOOL processing;
 @property (nonnull, readwrite, nonatomic) NSURL *recordURL;
+@property (nonnull, readwrite, nonatomic) id<EZOnlineScorerRecorderPayload> payload;
 @property (nonnull, nonatomic) dispatch_queue_t onlineScorerRecorderOperationQueue;
 @property (nonnull, nonatomic, strong) NSMutableData *cachedAudioData;
 
@@ -120,7 +121,7 @@ static NSURL *_socketURL;
     
     self = [super init];
     if (self) {
-        _payload = [payload jsonPayload];
+        _payload = payload;
         _useSpeex = useSpeex;
         _onlineScorerRecorderOperationQueue = dispatch_queue_create("com.liulishuo.onlineScorerRecorderOperationQueue",
                                                                     DISPATCH_QUEUE_SERIAL);
@@ -168,12 +169,12 @@ static NSURL *_socketURL;
 #if DEBUG
         NSLog(@"Directory does not exist at dirPath %@", tempPath);
 #endif
-        BOOL success = [fileManager createDirectoryAtPath:tempPath withIntermediateDirectories:YES attributes:nil error:&error];
+        
+        if (![fileManager createDirectoryAtPath:tempPath withIntermediateDirectories:YES attributes:nil error:&error]) {
 #if DEBUG
-        if (!success) {
             NSLog(@"=== error: %@", error.debugDescription);
-        }
 #endif
+        }
     }
     NSURL *tempDir = [NSURL fileURLWithPath:tempPath isDirectory:YES];
     NSURL *temporaryAudioURL = [tempDir URLByAppendingPathComponent:@"tempScorerRecord.aac" isDirectory:NO];
@@ -234,7 +235,7 @@ static NSURL *_socketURL;
         
         NSError *error;
         if (![strongSelf.audioSocket write:strongSelf.cachedAudioData error:&error]) {
-            [strongSelf finishScoringWithErrorCode:EZOnlineScorerRecorderErrorConnectionError underlineError:error];
+            [strongSelf finishScoringWithErrorCode:EZOnlineScorerRecorderErrorConnectionError underlyingError:error];
             return;
         }
         
@@ -246,7 +247,7 @@ static NSURL *_socketURL;
 
 - (NSData * _Nullable)metaData
 {
-    NSMutableDictionary *payload = [self.payload mutableCopy];
+    NSMutableDictionary *payload = [[self.payload jsonPayload] mutableCopy];
     payload[@"quality"] = self.useSpeex ? @(8) : @(-1);
     
     //salt
@@ -260,7 +261,7 @@ static NSURL *_socketURL;
     NSError *error = nil;
     NSData *metaJSONData = [NSJSONSerialization dataWithJSONObject:metaJSON options:0 error:&error];
     if (error) {
-        [self finishScoringWithErrorCode:EZOnlineScorerRecorderErrorInvalidParameter underlineError:error];
+        [self finishScoringWithErrorCode:EZOnlineScorerRecorderErrorInvalidParameter underlyingError:error];
         return nil;
     }
     
@@ -271,7 +272,7 @@ static NSURL *_socketURL;
     return [metaString dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (void)finishScoringWithErrorCode:(EZOnlineScorerRecorderError)errorCode underlineError:(NSError * _Nullable)error
+- (void)finishScoringWithErrorCode:(EZOnlineScorerRecorderError)errorCode underlyingError:(NSError * _Nullable)error
 {
     if (self.disposal) return;
 
@@ -284,7 +285,7 @@ static NSURL *_socketURL;
     }
 }
 
-- (void)finishRecordingWithErrorCode:(EZOnlineScorerRecorderError)errorCode underlineError:(NSError * _Nullable)error
+- (void)finishRecordingWithErrorCode:(EZOnlineScorerRecorderError)errorCode underlyingError:(NSError * _Nullable)error
 {
     if (self.disposal) return;
     
@@ -308,7 +309,7 @@ static NSURL *_socketURL;
     self.processing = NO;
     
     if (![data isKindOfClass:[NSDictionary class]]) {
-        [self finishScoringWithErrorCode:EZOnlineScorerRecorderErrorResponseJSONError underlineError:nil];
+        [self finishScoringWithErrorCode:EZOnlineScorerRecorderErrorResponseJSONError underlyingError:nil];
         return;
     }
     
@@ -325,6 +326,8 @@ static NSURL *_socketURL;
 #endif
     
     self.processing = NO;
+    self.audioSocket.delegate = nil;
+    self.audioSocket = nil;
     if (self.disposal) return;
     
     if ([self.delegate respondsToSelector:@selector(onlineScorer:didFailWithError:)]) {
@@ -343,7 +346,7 @@ static NSURL *_socketURL;
     self.recordFailed = YES;
     if (self.disposal) return;
 
-    [self finishRecordingWithErrorCode:EZOnlineScorerRecorderErrorRecorderError underlineError:error];
+    [self finishRecordingWithErrorCode:EZOnlineScorerRecorderErrorRecorderError underlyingError:error];
 }
 
 - (void)audioReaderDidBeginReading:(EZAudioReader * _Nonnull)reader
@@ -354,8 +357,8 @@ static NSURL *_socketURL;
     
     if (self.disposal) return;
 
-    if ([self.delegate respondsToSelector:@selector(onlineScorerDidBeginReading:)]) {
-        [self.delegate onlineScorerDidBeginReading:self];
+    if ([self.delegate respondsToSelector:@selector(onlineScorerDidBeginRecording:)]) {
+        [self.delegate onlineScorerDidBeginRecording:self];
     }
 }
 
@@ -379,7 +382,7 @@ static NSURL *_socketURL;
         [strongSelf.cachedAudioData appendData:audioData];
         NSError *error;
         if (![strongSelf.audioSocket write:audioData error:&error]) {
-            [strongSelf finishRecordingWithErrorCode:EZOnlineScorerRecorderErrorConnectionError underlineError:error];
+            [strongSelf finishScoringWithErrorCode:EZOnlineScorerRecorderErrorConnectionError underlyingError:error];
         }
     });
 }
@@ -394,8 +397,8 @@ static NSURL *_socketURL;
     if (self.disposal) return;
 
     [self.audioSocket close];
-    if ([self.delegate respondsToSelector:@selector(onlineScorerDidStop:)]) {
-        [self.delegate onlineScorerDidStop:self];
+    if ([self.delegate respondsToSelector:@selector(onlineScorerDidFinishRecording:)]) {
+        [self.delegate onlineScorerDidFinishRecording:self];
     }
 }
 

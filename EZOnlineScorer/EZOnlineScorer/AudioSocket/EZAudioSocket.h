@@ -8,6 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
+
+/**
+ EZAudioSocket error code. A positive error code is one of following error. Negtive error code implies it's a
+ server-generated error.
+
+ - EZAudioSocketErrorSocketClosed: EZAudioSocket failed to send data due to socket connection is already 
+ closed. You should create a new EZAudioSocket and resend data.
+ - EZAudioSocketErrorReceivedDataTypeMismatch: EZAudioSocket received wrong type data. Please contact developer
+ if this error occoured.
+ - EZAudioSocketErrorReceivedDataTooShort: EZAudioSocket received data length too short. Please contact 
+ developer if this error occoured.
+ - EZAudioSocketErrorConnectionError: EZAudioSocket failed to communicate with server. Check network status 
+ and retry later.
+ */
 typedef NS_ENUM(NSUInteger, EZAudioSocketError) {
     EZAudioSocketErrorSocketClosed,
     EZAudioSocketErrorReceivedDataTypeMismatch,

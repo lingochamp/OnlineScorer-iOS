@@ -181,8 +181,7 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
     NSData *dataMessage = message;
     if (dataMessage.length < sizeof(uint32_t)) {
         *error = errorForAudioSocketErrorCode(EZAudioSocketErrorReceivedDataTooShort, nil);
-        self.readyToClose = YES;
-        [self.webSocket close];
+        [self closeImmediately];
         return NO;
     }
     
@@ -192,8 +191,7 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
     
     if (metaLength > dataMessage.length + sizeof(uint32_t)) {
         *error = errorForAudioSocketErrorCode(EZAudioSocketErrorReceivedDataTooShort, nil);
-        self.readyToClose = YES;
-        [self.webSocket close];
+        [self closeImmediately];
         return NO;
     }
     
@@ -209,8 +207,7 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
         || ![meta[@"msg"] isKindOfClass:[NSString class]]
         || ![meta[@"result"] isKindOfClass:[NSString class]]) {
         *error = errorForAudioSocketErrorCode(EZAudioSocketErrorReceivedDataTypeMismatch, jsonError);
-        self.readyToClose = YES;
-        [self.webSocket close];
+        [self closeImmediately];
         return NO;
     }
     
@@ -222,8 +219,7 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
         *error = [NSError errorWithDomain:kEZAudioSocketErrorDomain
                                              code:statusCode
                                          userInfo:@{NSLocalizedDescriptionKey: message}];
-        self.readyToClose = YES;
-        [self.webSocket close];
+        [self closeImmediately];
         return NO;
     }
 
@@ -231,8 +227,7 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
     NSDictionary *result = [NSJSONSerialization JSONObjectWithData:decodeData options:0 error:&jsonError];
     if (jsonError) {
         *error = errorForAudioSocketErrorCode(EZAudioSocketErrorReceivedDataTypeMismatch, nil);
-        self.readyToClose = YES;
-        [self.webSocket close];
+        [self closeImmediately];
         return NO;
     }
     
@@ -241,8 +236,7 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
         [self.delegate audioSocket:self didReceiveData:result];
     }
     
-    self.readyToClose = YES;
-    [self.webSocket close];
+    [self closeImmediately];
     return YES;
 }
 
@@ -256,8 +250,7 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
         [self.delegate audioSocket:self didReceiveData:responseData];
     }
     
-    self.readyToClose = YES;
-    [self.webSocket close];
+    [self closeImmediately];
 }
 
 #pragma mark - getter & setter
@@ -292,8 +285,10 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
 
 - (void)webSocket:(EZSRWebSocket *)webSocket didFailWithError:(NSError *)error
 {
-    self.readyToClose = YES;
-    [self.delegate audioSocket:self didFailWithError:errorForAudioSocketErrorCode(EZAudioSocketErrorConnectionError, error)];
+    if (!self.readyToClose) {
+        [self.delegate audioSocket:self didFailWithError:errorForAudioSocketErrorCode(EZAudioSocketErrorConnectionError, error)];
+        [self closeImmediately];
+    }
 }
 
 - (void)webSocket:(EZSRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean

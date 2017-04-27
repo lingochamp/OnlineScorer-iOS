@@ -24,6 +24,10 @@ typedef NS_ENUM(NSUInteger, EZSemiOpenPayloadTargetAudience) {
     EZSemiOpenPayloadTargetAudienceCollege,
 };
 
+
+/**
+ EZSemiOpenPayload is not supported by server side currently.
+ */
 @interface EZSemiOpenPayload : NSObject<EZOnlineScorerRecorderPayload>
 
 #pragma clang diagnostic push

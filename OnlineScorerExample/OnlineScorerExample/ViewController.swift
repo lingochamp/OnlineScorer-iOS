@@ -173,19 +173,19 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: EZOnlineScorerRecorderDelegate {
-    func onlineScorerDidBeginReading(_ reader: EZOnlineScorerRecorder) {
+    func onlineScorerDidBeginRecording(_ scorer: EZOnlineScorerRecorder) {
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
         }
     }
     
-    func onlineScorerDidStop(_ reader: EZOnlineScorerRecorder) {
+    func onlineScorerDidFinishRecording(_ scorer: EZOnlineScorerRecorder) {
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadRows(at: [IndexPath(row: 1, section: 0), IndexPath(row: 2, section: 0)], with: .none)
         }
     }
     
-    func onlineScorer(_ reader: EZOnlineScorerRecorder, didFailWithError error: Error) {
+    func onlineScorer(_ scorer: EZOnlineScorerRecorder, didFailWithError error: Error) {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
             
@@ -194,7 +194,7 @@ extension ViewController: EZOnlineScorerRecorderDelegate {
         }
     }
     
-    func onlineScorer(_ audioSocket: EZOnlineScorerRecorder, didGenerateReport report: [AnyHashable : Any]) {
+    func onlineScorer(_ scorer: EZOnlineScorerRecorder, didGenerateReport report: [AnyHashable : Any]) {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
             
@@ -205,7 +205,7 @@ extension ViewController: EZOnlineScorerRecorderDelegate {
         }
     }
     
-    func onlineScorer(_ reader: EZOnlineScorerRecorder, didVolumnChange volumn: Float) {
+    func onlineScorer(_ scorer: EZOnlineScorerRecorder, didVolumnChange volumn: Float) {
         if let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) {
             cell.detailTextLabel?.text = String(format: "%.3f", volumn)
         }
