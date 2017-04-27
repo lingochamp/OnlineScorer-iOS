@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "EZOnlineScorerRecorderPayload.h"
 
+
+/**
+ EZReadAloudPayload is used to score sentence over pronunciation (both by sentence or by word),
+ fluency (by sentence), integrity (by sentence).
+ */
 @interface EZReadAloudPayload : NSObject<EZOnlineScorerRecorderPayload>
 
 #pragma clang diagnostic push
