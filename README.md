@@ -127,3 +127,71 @@ do {
 
 当结束录音时调用 stopRecording()，EZOnlineScorerRecorder 需要一些时间和服务器交换数据，可以通过 isProcessing & isRecording 属性来确定当前状态。
 当打分、录音状态变化或者报告生成后，EZOnlineScorerRecorder 会通知它的 delegate。
+
+# 服务端返回错误列表
+
+0 - 成功
+-1 - 参数有误
+-8 - 音频过长（目前限制120秒）
+-20 - 认证失败
+-30 - 请求过于频繁
+-31 - 余额不足
+-40 - 并发不足，需要重试（WeChat only）
+-41 - 排队超时（WeChat excluded）
+-97 - 接收音频数据超时（超过15秒没有数据包）
+-99 - 计算资源不可用
+-100 - 其他错误（例如从微信服务器下载音频不成功）
+
+
+## 打分报告格式
+
+EZReadAloudPayload 类型返回 json 示例
+
+```
+{
+    "fluency": 99,
+    "integrity": 100,
+    "locale": "en",
+    "overall": 100,
+    "pronunciation": 100,
+    "version": "2.1.0",
+    "words": [
+        {
+            "scores": {
+                "pronunciation": 100
+            },
+            "word": "i"
+        },
+        {
+            "scores": {
+                "pronunciation": 100
+            },
+            "word": "will"
+        },
+        {
+            "scores": {
+                "pronunciation": 100
+            },
+            "word": "study"
+        },
+        {
+            "scores": {
+                "pronunciation": 100
+            },
+            "word": "english"
+        },
+        {
+            "scores": {
+                "pronunciation": 100
+            },
+            "word": "very"
+        },
+        {
+            "scores": {
+                "pronunciation": 100
+            },
+            "word": "hard"
+        }
+    ]
+}
+```
