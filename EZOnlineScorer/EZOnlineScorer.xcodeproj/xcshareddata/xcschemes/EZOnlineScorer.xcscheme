@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "0830"
+   version = "1.7">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B21C1ACD1E9F73D3005CB84D"
+               BuildableName = "EZOnlineScorer.framework"
+               BlueprintName = "EZOnlineScorer"
+               ReferencedContainer = "container:EZOnlineScorer.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <Testables>
+      </Testables>
+      <AdditionalOptions>
+      </AdditionalOptions>
+   </TestAction>
+   <LaunchAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
+      allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "B21C1ACD1E9F73D3005CB84D"
+            BuildableName = "EZOnlineScorer.framework"
+            BlueprintName = "EZOnlineScorer"
+            ReferencedContainer = "container:EZOnlineScorer.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+      <AdditionalOptions>
+      </AdditionalOptions>
+   </LaunchAction>
+   <ProfileAction
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "B21C1ACD1E9F73D3005CB84D"
+            BuildableName = "EZOnlineScorer.framework"
+            BlueprintName = "EZOnlineScorer"
+            ReferencedContainer = "container:EZOnlineScorer.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+      <PostActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "# Start constants&#10;company=&quot;Liulishuo&quot;;&#10;companyID=&quot;com.liulishuo&quot;;&#10;companyURL=&quot;www.liulishuo.com&quot;;&#10;target=&quot;iphoneos&quot;;&#10;outputPath=&quot;${PROJECT_DIR}/../Documentation&quot;;&#10;# End constants&#10;&#10;/usr/local/bin/appledoc \&#10;--exit-threshold 2 \&#10;--project-name &quot;${PROJECT_NAME}&quot; \&#10;--project-company &quot;${company}&quot; \&#10;--company-id &quot;${companyID}&quot; \&#10;--docset-atom-filename &quot;${company}.atom&quot; \&#10;--docset-feed-url &quot;${companyURL}/docs/%DOCSETATOMFILENAME&quot; \&#10;--docset-package-url &quot;${companyURL}/docs/%DOCSETPACKAGEFILENAME&quot; \&#10;--docset-fallback-url &quot;${companyURL}/docs&quot; \&#10;--docset-platform-family &quot;${target}&quot; \&#10;--index-desc &quot;${PROJECT_DIR}/../Documentation/appledoc/Top_level.markdown&quot; \&#10;--keep-intermediate-files \&#10;--keep-undocumented-objects \&#10;--keep-undocumented-members \&#10;--logformat xcode \&#10;--merge-categories \&#10;--no-repeat-first-par \&#10;--no-warn-invalid-crossref \&#10;--no-warn-undocumented-object \&#10;--no-warn-undocumented-member \&#10;--no-warn-empty-description \&#10;--output &quot;${outputPath}&quot; \&#10;--print-information-block-titles \&#10;--use-code-order \&#10;--verbose 4 \&#10;--ignore &quot;*.m&quot; \&#10;--ignore &quot;*.pch&quot; \&#10;--ignore &quot;*.config&quot; \&#10;--ignore &quot;*.xcconfig&quot; \&#10;--ignore &quot;*.docset&quot; \&#10;--ignore &quot;*.xcodeproj&quot; \&#10;--ignore &quot;*.xcworkspace&quot; \&#10;--ignore &quot;*.lock&quot; \&#10;--ignore &quot;*.plist&quot; \&#10;--ignore &quot;*.strings&quot; \&#10;--ignore &quot;*.txt&quot; \&#10;--ignore &quot;*.app&quot; \&#10;--ignore &quot;*.podspec&quot; \&#10;--ignore &quot;*.jnlp&quot; \&#10;--ignore &quot;*.jar&quot; \&#10;--ignore &quot;*.png&quot; \&#10;--ignore &quot;*.jpg&quot; \&#10;--ignore &quot;*.html&quot; \&#10;--ignore &quot;*.xml&quot; \&#10;--ignore &quot;*.sh&quot; \&#10;--ignore &quot;*.gitignore&quot; \&#10;--ignore &quot;Podfile&quot; \&#10;--ignore &quot;.idea&quot; \&#10;--ignore &quot;build&quot; \&#10;--ignore &quot;EZAudioReader.h&quot; \&#10;--ignore &quot;Speex&quot; \&#10;--ignore &quot;AudioSocket&quot; \&#10;--ignore &quot;SocketRocket&quot; \&#10;--no-create-docset \&#10;&quot;${PROJECT_DIR}&quot;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "B21C1ACD1E9F73D3005CB84D"
+                     BuildableName = "EZOnlineScorer.framework"
+                     BlueprintName = "EZOnlineScorer"
+                     ReferencedContainer = "container:EZOnlineScorer.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PostActions>
+   </ArchiveAction>
+</Scheme>

@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>EZOnlineScorerRecorder Class Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1334)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container" class="hide-in-xcode">
+			
+			<h1 id="library-title">
+				<a href="../index.html">EZOnlineScorer </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="../index.html">Liulishuo</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+	<optgroup label="Properties">
+		
+		<option value="//api/name/socketURL">socketURL</option>
+		
+		<option value="//api/name/payload">payload</option>
+		
+		<option value="//api/name/useSpeex">useSpeex</option>
+		
+		<option value="//api/name/delegate">delegate</option>
+		
+		<option value="//api/name/recordURL">recordURL</option>
+		
+		<option value="//api/name/recording">recording</option>
+		
+		<option value="//api/name/processing">processing</option>
+		
+	</optgroup>
+	
+
+	
+	<optgroup label="Class Methods">
+		
+		<option value="//api/name/configureAppID:secret:">+ configureAppID:secret:</option>
+		
+		<option value="//api/name/setSocketURL:">+ setSocketURL:</option>
+		
+	</optgroup>
+	
+
+	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/init">- init</option>
+		
+		<option value="//api/name/initWithPayload:useSpeex:">- initWithPayload:useSpeex:</option>
+		
+		<option value="//api/name/initWithPayload:">- initWithPayload:</option>
+		
+		<option value="//api/name/recordToURL:">- recordToURL:</option>
+		
+		<option value="//api/name/record">- record</option>
+		
+		<option value="//api/name/stopRecording">- stopRecording</option>
+		
+		<option value="//api/name/stopScoring">- stopScoring</option>
+		
+		<option value="//api/name/retry">- retry</option>
+		
+	</optgroup>
+	
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">EZOnlineScorerRecorder Class Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Inherits from</th>
+	<td>NSObject</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>EZOnlineScorerRecorder.h</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>Main class for EZOnlineScorer. EZOnlineScorerRecorder use hardware accelerate to convert <a href="#//api/name/record">record</a> PCM data to
+output m4a file. Using multiple EZOnlineScorerRecorder at once is DISALLOWED. It may cause serious memory
+issue and could crash your app.</p>
+
+<p>EZOnlineScorer 的主类。EZOnlineScorerRecorder 使用硬件音频编码机制，因此不允许同时使用多个 EZOnlineScorerRecorder。</p>
+					</div>
+					
+					
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						
+						
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/socketURL" title="socketURL"></a>
+	<h3 class="method-title"><code><a href="#//api/name/socketURL">&nbsp;&nbsp;socketURL</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>EZOnlineScorerRecorder&rsquo;s socketURL for online scoring. To change socketURL, use class method <a href="#//api/name/socketURL">setSocketURL:</a>.
+Readonly.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonnull, readonly, nonatomic) NSURL *socketURL</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>EZOnlineScorerRecorder 的在线打分服务器地址。想要修改 socketURL 需要调用类方法 +setSocketURL:，设置会在新初始化的
+EZOnlineScorerRecorder 中生效。只读。</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">EZOnlineScorerRecorder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/payload" title="payload"></a>
+	<h3 class="method-title"><code><a href="#//api/name/payload">&nbsp;&nbsp;payload</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p><a href="../Protocols/EZOnlineScorerRecorderPayload.html">EZOnlineScorerRecorderPayload</a> object that used to initiate EZOnlineScorerRecorder. Readonly</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonnull, readonly, nonatomic) id&lt;EZOnlineScorerRecorderPayload&gt; payload</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>初始化时使用的 <a href="../Protocols/EZOnlineScorerRecorderPayload.html">EZOnlineScorerRecorderPayload</a> 对象。只读。</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">EZOnlineScorerRecorder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/useSpeex" title="useSpeex"></a>
+	<h3 class="method-title"><code><a href="#//api/name/useSpeex">&nbsp;&nbsp;useSpeex</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Indicate EZOnlineScorerRecorder use speex to compress audio data for not. Readonly.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (readonly) BOOL useSpeex</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>EZOnlineScorerRecorder 是否使用 speex 压缩音频数据。只读。</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">EZOnlineScorerRecorder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/delegate" title="delegate"></a>
+	<h3 class="method-title"><code><a href="#//api/name/delegate">&nbsp;&nbsp;delegate</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+
+			<div class="method-subsection method-declaration"><code>@property (nullable, nonatomic, weak) id&lt;EZOnlineScorerRecorderDelegate&gt; delegate</code></div>
+
+		    
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/recordURL" title="recordURL"></a>
+	<h3 class="method-title"><code><a href="#//api/name/recordURL">&nbsp;&nbsp;recordURL</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Record location of EZOnlineScorerRecorder. Readonly.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonnull, readonly, nonatomic) NSURL *recordURL</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>EZOnlineScorerRecorder 的录音位置。只读。</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">EZOnlineScorerRecorder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/recording" title="recording"></a>
+	<h3 class="method-title"><code><a href="#//api/name/recording">&nbsp;&nbsp;recording</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Indicate whether EZOnlineScorerRecorder is recording. Readonly.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (readonly, getter=isRecording) BOOL recording</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>EZOnlineScorerRecorder 是否正在和服务器通信。只读。</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">EZOnlineScorerRecorder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/processing" title="processing"></a>
+	<h3 class="method-title"><code><a href="#//api/name/processing">&nbsp;&nbsp;processing</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Indicate whether EZOnlineScorerRecorder is communicating with server. Readonly.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (readonly, getter=isProcessing) BOOL processing</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>EZOnlineScorerRecorder 是否正在和服务器通信。只读。</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">EZOnlineScorerRecorder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/configureAppID:secret:" title="configureAppID:secret:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/configureAppID:secret:">+&nbsp;configureAppID:secret:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+
+			<div class="method-subsection method-declaration"><code>+ (void)configureAppID:(NSString *_Nonnull)<em>appID</em> secret:(NSString *_Nonnull)<em>secret</em></code></div>
+
+		    
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/setSocketURL:" title="setSocketURL:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setSocketURL:">+&nbsp;setSocketURL:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+
+			<div class="method-subsection method-declaration"><code>+ (void)setSocketURL:(NSURL *_Nonnull)<em>socketURL</em></code></div>
+
+		    
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/init" title="init"></a>
+	<h3 class="method-title"><code><a href="#//api/name/init">&ndash;&nbsp;init</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+
+			<div class="method-subsection method-declaration"><code>- (instancetype _Nullable)init</code></div>
+
+		    
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/initWithPayload:useSpeex:" title="initWithPayload:useSpeex:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/initWithPayload:useSpeex:">&ndash;&nbsp;initWithPayload:useSpeex:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Designed initializer of EZOnlineScorerRecorder.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (instancetype _Nullable)initWithPayload:(id&lt;EZOnlineScorerRecorderPayload&gt; _Nonnull)<em>payload</em> useSpeex:(BOOL)<em>useSpeex</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>payload</code></th>
+						<td><p>An object confirm to <a href="../Protocols/EZOnlineScorerRecorderPayload.html">EZOnlineScorerRecorderPayload</a> protocol, which provide scorer catrgory info. 符合 <a href="../Protocols/EZOnlineScorerRecorderPayload.html">EZOnlineScorerRecorderPayload</a> 协议的对象，提供打分需要的元信息。</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>useSpeex</code></th>
+						<td><p>Indicate whether use speex to compress audio data. 是否使用 speex 进行音频传输压缩。建议设置为 YES.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>An EZOnlineScorerRecorder object. EZOnlineScorerRecorder will not <a href="#//api/name/init">init</a> if appID or secret is not set. EZOnlineScorerRecorder 对象。当 appID 或 secret 没有设置的情况下会返回 nil.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Note: Use multiple EZOnlineScorerRecorder at once is DISALLOWED. It may cause serious memory issue
+and could crash your app.</p>
+
+<p>EZOnlineScorerRecorder 的 Designed initializer。</p>
+
+<p>注意：严禁同时使用多个 EZOnlineScorerRecorder。这会导致严重的内存泄露问题并有可能使 App 崩溃。</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">EZOnlineScorerRecorder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/initWithPayload:" title="initWithPayload:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/initWithPayload:">&ndash;&nbsp;initWithPayload:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Convenience initializer of EZOnlineScorerRecorder. Same as <a href="#//api/name/initWithPayload:useSpeex:">initWithPayload:useSpeex:</a> but use speex by default.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (instancetype _Nullable)initWithPayload:(id&lt;EZOnlineScorerRecorderPayload&gt; _Nonnull)<em>payload</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>payload</code></th>
+						<td><p>An object confirm to <a href="../Protocols/EZOnlineScorerRecorderPayload.html">EZOnlineScorerRecorderPayload</a> protocol, which provide scorer catrgory info. 符合 <a href="../Protocols/EZOnlineScorerRecorderPayload.html">EZOnlineScorerRecorderPayload</a> 协议的对象，提供打分需要的元信息。</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>An EZOnlineScorerRecorder object. EZOnlineScorerRecorder will not <a href="#//api/name/init">init</a> if appID or secret is not set. EZOnlineScorerRecorder 对象。当 appID 或 secret 没有设置的情况下会返回 nil.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>EZOnlineScorerRecorder 的 Convenience initializer。和 <a href="#//api/name/initWithPayload:useSpeex:">initWithPayload:useSpeex:</a> 相同但默认使用 speex。</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">EZOnlineScorerRecorder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/recordToURL:" title="recordToURL:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/recordToURL:">&ndash;&nbsp;recordToURL:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Record to given location. Must set AVAudioSession to currect category (Record or PlayAndRecord)
+and activate AVAudioSession before call this function.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)recordToURL:(NSURL *_Nonnull)<em>fileURL</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>fileURL</code></th>
+						<td><p>Destination <a href="#//api/name/record">record</a> URL. Record file format is m4a. 录音文件保存位置。录音格式是 m4a.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Note: You need to request permission before setup AVAudioSession.</p>
+
+<p>Note: EZOnlineScorerRecorder are intended for one-time-use only. -recordToURL: should be called once and only once.</p>
+
+<p>录音到指定文件并进行在线打分。录音前必须正确设置 AVAudioSession 的 category (Record 或 PlayAndRecord)，并在录音前激活
+AVAudioSession。</p>
+
+<p>注意：设置 AVAudioSession 前你需要自行申请录音权限。</p>
+
+<p>注意：EZOnlineScorerRecorder 是为一次性使用设计的。-recordToURL: 方法只应被调用一次（之后的调用会静默失败）。</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">EZOnlineScorerRecorder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/record" title="record"></a>
+	<h3 class="method-title"><code><a href="#//api/name/record">&ndash;&nbsp;record</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Record file to a temporary location. Old temporary record file will be overwrited.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)record</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>录音到临时文件并进行在线打分。会覆盖上一次的临时录音文件。</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection see-also-section">
+				<h4 class="method-subtitle">See Also</h4>
+				<ul>
+					
+					<li><code><p><a href="#//api/name/recordToURL:">- recordToURL:</a></p></code></li>
+					
+				</ul>
+			</div>
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">EZOnlineScorerRecorder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/stopRecording" title="stopRecording"></a>
+	<h3 class="method-title"><code><a href="#//api/name/stopRecording">&ndash;&nbsp;stopRecording</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Finish <a href="#//api/name/recording">recording</a> and wait for response</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)stopRecording</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>结束录音并等待服务器返回打分结果。</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">EZOnlineScorerRecorder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/stopScoring" title="stopScoring"></a>
+	<h3 class="method-title"><code><a href="#//api/name/stopScoring">&ndash;&nbsp;stopScoring</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Close connection and dispose all resource. Will stop <a href="#//api/name/recording">recording</a> if is <a href="#//api/name/recording">recording</a>. Call -stopScoring will mark
+EZOnlineScorerRecorder disposal, and any following method call will fail silently.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)stopScoring</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>关闭打分连接并清理所有的资源。如果当前正在录音，录音也会终止。调用 -stopScoring 后 EZOnlineScorerRecorder 会标记为废弃状态
+之后所有的方法调用都会静默失败。</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">EZOnlineScorerRecorder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/retry" title="retry"></a>
+	<h3 class="method-title"><code><a href="#//api/name/retry">&ndash;&nbsp;retry</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>In case of <a href="#//api/name/record">record</a> success but online scoring failed, call this method and EZOnlineScorerRecorder
+will resend audio to server for scoring. Calling this method will dispose current scoring connection(if any).
+You should decide whether to retry according to error message you received.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)retry</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>当录音成功但在线打分失败时，调用该方法 EZOnlineScorerRecorder 会重发音频数据到服务器进行打分。如果当前有未完成的打分操作，
+调用 -retry 会取消目前的打分连接。通常在 <a href="#//api/name/delegate">delegate</a> 收到 -onlineScorer:didFailWithError: 调用后，开发者根据 error 信息
+自行决定是否需要重试</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">EZOnlineScorerRecorder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
+					
+
+                    
+                    
+          
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2017 Liulishuo. All rights reserved. Updated: 2017-04-28</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1334)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>
