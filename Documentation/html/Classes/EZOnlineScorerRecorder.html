@@ -136,9 +136,11 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Main class for EZOnlineScorer. EZOnlineScorer use hardware accelerate to convert <a href="#//api/name/record">record</a> PCM data to output
-m4a file. Using multiple EZOnlineScorerRecorder at once is DISALLOWED. It may cause serious memory issue
-and could crash your app.</p>
+						<p>Main class for EZOnlineScorer. EZOnlineScorerRecorder use hardware accelerate to convert <a href="#//api/name/record">record</a> PCM data to
+output m4a file. Using multiple EZOnlineScorerRecorder at once is DISALLOWED. It may cause serious memory
+issue and could crash your app.</p>
+
+<p>EZOnlineScorer 的主类。EZOnlineScorerRecorder 使用硬件音频编码机制，因此不允许同时使用多个 EZOnlineScorerRecorder。</p>
 					</div>
 					
 					
@@ -181,6 +183,12 @@ Readonly.</p>
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>EZOnlineScorerRecorder 的在线打分服务器地址。想要修改 socketURL 需要调用类方法 +setSocketURL:，设置会在新初始化的
+EZOnlineScorerRecorder 中生效。只读。</p>
+			</div>
+			
 
 			
 
@@ -222,6 +230,11 @@ Readonly.</p>
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>初始化时使用的 <a href="../Protocols/EZOnlineScorerRecorderPayload.html">EZOnlineScorerRecorderPayload</a> 对象。只读。</p>
+			</div>
+			
 
 			
 
@@ -262,6 +275,11 @@ Readonly.</p>
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>EZOnlineScorerRecorder 是否使用 speex 压缩音频数据。只读。</p>
+			</div>
 			
 
 			
@@ -305,7 +323,7 @@ Readonly.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>EZOnlineScorerRecorder <a href="#//api/name/record">record</a> URL. If</p>
+				<p>Record location of EZOnlineScorerRecorder. Readonly.</p>
 			</div>
 			
 		    
@@ -319,6 +337,11 @@ Readonly.</p>
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>EZOnlineScorerRecorder 的录音位置。只读。</p>
+			</div>
 			
 
 			
@@ -344,10 +367,40 @@ Readonly.</p>
 
 		<div class="method-info-container">
 			
+			
+			<div class="method-subsection brief-description">
+				<p>Indicate whether EZOnlineScorerRecorder is recording. Readonly.</p>
+			</div>
+			
+		    
 
 			<div class="method-subsection method-declaration"><code>@property (readonly, getter=isRecording) BOOL recording</code></div>
 
 		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>EZOnlineScorerRecorder 是否正在和服务器通信。只读。</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">EZOnlineScorerRecorder.h</code></p>
+			</div>
+			
+			
 		</div>
 	</div>
 </div><div class="section-method">
@@ -360,10 +413,40 @@ Readonly.</p>
 
 		<div class="method-info-container">
 			
+			
+			<div class="method-subsection brief-description">
+				<p>Indicate whether EZOnlineScorerRecorder is communicating with server. Readonly.</p>
+			</div>
+			
+		    
 
 			<div class="method-subsection method-declaration"><code>@property (readonly, getter=isProcessing) BOOL processing</code></div>
 
 		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>EZOnlineScorerRecorder 是否正在和服务器通信。只读。</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">EZOnlineScorerRecorder.h</code></p>
+			</div>
+			
+			
 		</div>
 	</div>
 </div><div class="section-method">
@@ -441,12 +524,12 @@ Readonly.</p>
 				
 					<tr>
 						<th scope="row" class="argument-name"><code>payload</code></th>
-						<td><p>An object confirm to <a href="../Protocols/EZOnlineScorerRecorderPayload.html">EZOnlineScorerRecorderPayload</a> protocol, which provide scorer catrgory info.</p></td>
+						<td><p>An object confirm to <a href="../Protocols/EZOnlineScorerRecorderPayload.html">EZOnlineScorerRecorderPayload</a> protocol, which provide scorer catrgory info. 符合 <a href="../Protocols/EZOnlineScorerRecorderPayload.html">EZOnlineScorerRecorderPayload</a> 协议的对象，提供打分需要的元信息。</p></td>
 					</tr>
 				
 					<tr>
 						<th scope="row" class="argument-name"><code>useSpeex</code></th>
-						<td><p>Indicate whether use speex to compress audio data</p></td>
+						<td><p>Indicate whether use speex to compress audio data. 是否使用 speex 进行音频传输压缩。建议设置为 YES.</p></td>
 					</tr>
 				
 				</table>
@@ -456,7 +539,7 @@ Readonly.</p>
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>An EZOnlineScorerRecorder object. EZOnlineScorerRecorder will not <a href="#//api/name/init">init</a> if appID or secret is not set.</p>
+				<p>An EZOnlineScorerRecorder object. EZOnlineScorerRecorder will not <a href="#//api/name/init">init</a> if appID or secret is not set. EZOnlineScorerRecorder 对象。当 appID 或 secret 没有设置的情况下会返回 nil.</p>
 			</div>
 			
 
@@ -467,6 +550,10 @@ Readonly.</p>
 				<h4 class="method-subtitle">Discussion</h4>
 				<p>Note: Use multiple EZOnlineScorerRecorder at once is DISALLOWED. It may cause serious memory issue
 and could crash your app.</p>
+
+<p>EZOnlineScorerRecorder 的 Designed initializer。</p>
+
+<p>注意：严禁同时使用多个 EZOnlineScorerRecorder。这会导致严重的内存泄露问题并有可能使 App 崩溃。</p>
 			</div>
 			
 
@@ -510,7 +597,7 @@ and could crash your app.</p>
 				
 					<tr>
 						<th scope="row" class="argument-name"><code>payload</code></th>
-						<td><p>An object confirm to <a href="../Protocols/EZOnlineScorerRecorderPayload.html">EZOnlineScorerRecorderPayload</a> protocol, which provide scorer catrgory info.</p></td>
+						<td><p>An object confirm to <a href="../Protocols/EZOnlineScorerRecorderPayload.html">EZOnlineScorerRecorderPayload</a> protocol, which provide scorer catrgory info. 符合 <a href="../Protocols/EZOnlineScorerRecorderPayload.html">EZOnlineScorerRecorderPayload</a> 协议的对象，提供打分需要的元信息。</p></td>
 					</tr>
 				
 				</table>
@@ -520,12 +607,17 @@ and could crash your app.</p>
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>An EZOnlineScorerRecorder object. EZOnlineScorerRecorder will not <a href="#//api/name/init">init</a> if appID or secret is not set.</p>
+				<p>An EZOnlineScorerRecorder object. EZOnlineScorerRecorder will not <a href="#//api/name/init">init</a> if appID or secret is not set. EZOnlineScorerRecorder 对象。当 appID 或 secret 没有设置的情况下会返回 nil.</p>
 			</div>
 			
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>EZOnlineScorerRecorder 的 Convenience initializer。和 <a href="#//api/name/initWithPayload:useSpeex:">initWithPayload:useSpeex:</a> 相同但默认使用 speex。</p>
+			</div>
 			
 
 			
@@ -553,7 +645,7 @@ and could crash your app.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Record to given location. must set AVAudioSession to currect category (Record or PlayAndRecord)
+				<p>Record to given location. Must set AVAudioSession to currect category (Record or PlayAndRecord)
 and activate AVAudioSession before call this function.</p>
 			</div>
 			
@@ -569,7 +661,7 @@ and activate AVAudioSession before call this function.</p>
 				
 					<tr>
 						<th scope="row" class="argument-name"><code>fileURL</code></th>
-						<td><p>Destination <a href="#//api/name/record">record</a> URL. Record file format is aac.</p></td>
+						<td><p>Destination <a href="#//api/name/record">record</a> URL. Record file format is m4a. 录音文件保存位置。录音格式是 m4a.</p></td>
 					</tr>
 				
 				</table>
@@ -583,9 +675,16 @@ and activate AVAudioSession before call this function.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Note: that you need to request permission before setup AVAudioSession.</p>
+				<p>Note: You need to request permission before setup AVAudioSession.</p>
 
 <p>Note: EZOnlineScorerRecorder are intended for one-time-use only. -recordToURL: should be called once and only once.</p>
+
+<p>录音到指定文件并进行在线打分。录音前必须正确设置 AVAudioSession 的 category (Record 或 PlayAndRecord)，并在录音前激活
+AVAudioSession。</p>
+
+<p>注意：设置 AVAudioSession 前你需要自行申请录音权限。</p>
+
+<p>注意：EZOnlineScorerRecorder 是为一次性使用设计的。-recordToURL: 方法只应被调用一次（之后的调用会静默失败）。</p>
 			</div>
 			
 
@@ -614,7 +713,7 @@ and activate AVAudioSession before call this function.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Record file to a temporary location.</p>
+				<p>Record file to a temporary location. Old temporary record file will be overwrited.</p>
 			</div>
 			
 		    
@@ -628,6 +727,11 @@ and activate AVAudioSession before call this function.</p>
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>录音到临时文件并进行在线打分。会覆盖上一次的临时录音文件。</p>
+			</div>
 			
 
 			
@@ -679,6 +783,11 @@ and activate AVAudioSession before call this function.</p>
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>结束录音并等待服务器返回打分结果。</p>
+			</div>
+			
 
 			
 
@@ -705,7 +814,7 @@ and activate AVAudioSession before call this function.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Close connection and disposal all resource. Will stop <a href="#//api/name/recording">recording</a> if is <a href="#//api/name/recording">recording</a>. Call -stopScoring will mark
+				<p>Close connection and dispose all resource. Will stop <a href="#//api/name/recording">recording</a> if is <a href="#//api/name/recording">recording</a>. Call -stopScoring will mark
 EZOnlineScorerRecorder disposal, and any following method call will fail silently.</p>
 			</div>
 			
@@ -720,6 +829,12 @@ EZOnlineScorerRecorder disposal, and any following method call will fail silentl
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>关闭打分连接并清理所有的资源。如果当前正在录音，录音也会终止。调用 -stopScoring 后 EZOnlineScorerRecorder 会标记为废弃状态
+之后所有的方法调用都会静默失败。</p>
+			</div>
 			
 
 			
@@ -764,6 +879,13 @@ You should decide whether to retry according to error message you received.</p>
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>当录音成功但在线打分失败时，调用该方法 EZOnlineScorerRecorder 会重发音频数据到服务器进行打分。如果当前有未完成的打分操作，
+调用 -retry 会取消目前的打分连接。通常在 <a href="#//api/name/delegate">delegate</a> 收到 -onlineScorer:didFailWithError: 调用后，开发者根据 error 信息
+自行决定是否需要重试</p>
+			</div>
+			
 
 			
 
@@ -793,7 +915,7 @@ You should decide whether to retry according to error message you received.</p>
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2017 Liulishuo. All rights reserved. Updated: 2017-04-27</p>
+						<p class="copyright">Copyright &copy; 2017 Liulishuo. All rights reserved. Updated: 2017-04-28</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1334)</a>.</p>
