@@ -18,4 +18,5 @@ FOUNDATION_EXPORT const unsigned char EZOnlineScorerVersionString[];
 
 #import <EZOnlineScorer/EZOnlineScorerRecorderPayload.h>
 #import <EZOnlineScorer/EZReadAloudPayload.h>
+#import <EZOnlineScorer/EZASRPayload.h>
 #import <EZOnlineScorer/EZOnlineScorerRecorder.h>

@@ -27,6 +27,8 @@
 		B21C1B011EA07E26005CB84D /* voice.c in Sources */ = {isa = PBXBuildFile; fileRef = B21C1AEF1EA07E26005CB84D /* voice.c */; };
 		B21C1B021EA07E26005CB84D /* voice.h in Headers */ = {isa = PBXBuildFile; fileRef = B21C1AF01EA07E26005CB84D /* voice.h */; };
 		B21C1B051EA07E2D005CB84D /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B21C1B041EA07E2D005CB84D /* libicucore.tbd */; };
+		B2334E7B1EE7A8BD0035261E /* EZASRPayload.h in Headers */ = {isa = PBXBuildFile; fileRef = B2334E791EE7A8BD0035261E /* EZASRPayload.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B2334E7C1EE7A8BD0035261E /* EZASRPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = B2334E7A1EE7A8BD0035261E /* EZASRPayload.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +54,8 @@
 		B21C1AEF1EA07E26005CB84D /* voice.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = voice.c; sourceTree = "<group>"; };
 		B21C1AF01EA07E26005CB84D /* voice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = voice.h; sourceTree = "<group>"; };
 		B21C1B041EA07E2D005CB84D /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		B2334E791EE7A8BD0035261E /* EZASRPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZASRPayload.h; sourceTree = "<group>"; };
+		B2334E7A1EE7A8BD0035261E /* EZASRPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZASRPayload.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +134,8 @@
 			isa = PBXGroup;
 			children = (
 				B21C1AE31EA07E26005CB84D /* EZOnlineScorerRecorderPayload.h */,
+				B2334E791EE7A8BD0035261E /* EZASRPayload.h */,
+				B2334E7A1EE7A8BD0035261E /* EZASRPayload.m */,
 				B21C1AE41EA07E26005CB84D /* EZReadAloudPayload.h */,
 				B21C1AE51EA07E26005CB84D /* EZReadAloudPayload.m */,
 				B21C1AE61EA07E26005CB84D /* EZSemiOpenPayload.h */,
@@ -175,6 +181,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B21C1AFC1EA07E26005CB84D /* EZSRWebSocket.h in Headers */,
+				B2334E7B1EE7A8BD0035261E /* EZASRPayload.h in Headers */,
 				B21C1AF81EA07E26005CB84D /* EZReadAloudPayload.h in Headers */,
 				B21C1AF71EA07E26005CB84D /* EZOnlineScorerRecorderPayload.h in Headers */,
 				B21C1AF11EA07E26005CB84D /* EZOnlineScorerRecorder.h in Headers */,
@@ -262,6 +269,7 @@
 				B21C1AFD1EA07E26005CB84D /* EZSRWebSocket.m in Sources */,
 				B21C1AF61EA07E26005CB84D /* EZAudioSocket.m in Sources */,
 				B21C1AFF1EA07E26005CB84D /* EZSpeexManager.m in Sources */,
+				B2334E7C1EE7A8BD0035261E /* EZASRPayload.m in Sources */,
 				B21C1B011EA07E26005CB84D /* voice.c in Sources */,
 				B21C1AF21EA07E26005CB84D /* EZOnlineScorerRecorder.m in Sources */,
 			);
