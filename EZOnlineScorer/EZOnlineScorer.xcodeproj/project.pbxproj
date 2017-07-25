@@ -21,18 +21,50 @@
 		B21C1AFB1EA07E26005CB84D /* EZSemiOpenPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C1AE71EA07E26005CB84D /* EZSemiOpenPayload.m */; };
 		B21C1AFC1EA07E26005CB84D /* EZSRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = B21C1AE91EA07E26005CB84D /* EZSRWebSocket.h */; };
 		B21C1AFD1EA07E26005CB84D /* EZSRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C1AEA1EA07E26005CB84D /* EZSRWebSocket.m */; settings = {COMPILER_FLAGS = "-w"; }; };
-		B21C1AFE1EA07E26005CB84D /* EZSpeexManager.h in Headers */ = {isa = PBXBuildFile; fileRef = B21C1AEC1EA07E26005CB84D /* EZSpeexManager.h */; };
-		B21C1AFF1EA07E26005CB84D /* EZSpeexManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C1AED1EA07E26005CB84D /* EZSpeexManager.m */; };
-		B21C1B001EA07E26005CB84D /* Speex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21C1AEE1EA07E26005CB84D /* Speex.framework */; };
-		B21C1B011EA07E26005CB84D /* voice.c in Sources */ = {isa = PBXBuildFile; fileRef = B21C1AEF1EA07E26005CB84D /* voice.c */; };
-		B21C1B021EA07E26005CB84D /* voice.h in Headers */ = {isa = PBXBuildFile; fileRef = B21C1AF01EA07E26005CB84D /* voice.h */; };
 		B21C1B051EA07E2D005CB84D /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B21C1B041EA07E2D005CB84D /* libicucore.tbd */; };
 		B2334E7B1EE7A8BD0035261E /* EZASRPayload.h in Headers */ = {isa = PBXBuildFile; fileRef = B2334E791EE7A8BD0035261E /* EZASRPayload.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B2334E7C1EE7A8BD0035261E /* EZASRPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = B2334E7A1EE7A8BD0035261E /* EZASRPayload.m */; };
+		B291ED421F25D61F00F421AD /* voice.h in Headers */ = {isa = PBXBuildFile; fileRef = B291ED3E1F25D61F00F421AD /* voice.h */; };
+		B291ED431F25D61F00F421AD /* voice.c in Sources */ = {isa = PBXBuildFile; fileRef = B291ED3F1F25D61F00F421AD /* voice.c */; };
+		B291ED441F25D61F00F421AD /* EZSpeexManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B291ED401F25D61F00F421AD /* EZSpeexManager.m */; };
+		B291ED451F25D61F00F421AD /* EZSpeexManager.h in Headers */ = {isa = PBXBuildFile; fileRef = B291ED411F25D61F00F421AD /* EZSpeexManager.h */; };
+		B291ED471F25D62C00F421AD /* libspeex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B291ED461F25D62C00F421AD /* libspeex.a */; };
+		B2D8C41D1F26EDBA0042E403 /* EZSpeexManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B291ED401F25D61F00F421AD /* EZSpeexManager.m */; };
+		B2D8C41E1F26EDBE0042E403 /* voice.c in Sources */ = {isa = PBXBuildFile; fileRef = B291ED3F1F25D61F00F421AD /* voice.c */; };
+		B2D8C41F1F26EDC10042E403 /* EZSRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C1AEA1EA07E26005CB84D /* EZSRWebSocket.m */; };
+		B2D8C4201F26EDC30042E403 /* EZSemiOpenPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C1AE71EA07E26005CB84D /* EZSemiOpenPayload.m */; };
+		B2D8C4211F26EDC70042E403 /* EZReadAloudPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C1AE51EA07E26005CB84D /* EZReadAloudPayload.m */; };
+		B2D8C4221F26EDCB0042E403 /* EZASRPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = B2334E7A1EE7A8BD0035261E /* EZASRPayload.m */; };
+		B2D8C4231F26EDD00042E403 /* EZAudioSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C1AE11EA07E26005CB84D /* EZAudioSocket.m */; };
+		B2D8C4241F26EDD80042E403 /* EZAudioReader.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C1ADE1EA07E26005CB84D /* EZAudioReader.m */; };
+		B2D8C4251F26EDDB0042E403 /* EZOnlineScorerRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C1ADB1EA07E26005CB84D /* EZOnlineScorerRecorder.m */; };
+		B2D8C4261F26EEA70042E403 /* libspeex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B291ED461F25D62C00F421AD /* libspeex.a */; };
+		B2D8C4281F26EEF60042E403 /* EZOnlineScorerRecorder.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B21C1ADA1EA07E26005CB84D /* EZOnlineScorerRecorder.h */; };
+		B2D8C4291F26EEF60042E403 /* EZOnlineScorerRecorderPayload.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B21C1AE31EA07E26005CB84D /* EZOnlineScorerRecorderPayload.h */; };
+		B2D8C42B1F26EEF60042E403 /* EZReadAloudPayload.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B21C1AE41EA07E26005CB84D /* EZReadAloudPayload.h */; };
+		B2D8C42D1F26EEF60042E403 /* EZOnlineScorer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B21C1AD11E9F73D3005CB84D /* EZOnlineScorer.h */; };
+		B2D8C42E1F26EFEB0042E403 /* EZASRPayload.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B2334E791EE7A8BD0035261E /* EZASRPayload.h */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		B2D8C4121F26ECF60042E403 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				B2D8C42E1F26EFEB0042E403 /* EZASRPayload.h in CopyFiles */,
+				B2D8C4281F26EEF60042E403 /* EZOnlineScorerRecorder.h in CopyFiles */,
+				B2D8C4291F26EEF60042E403 /* EZOnlineScorerRecorderPayload.h in CopyFiles */,
+				B2D8C42B1F26EEF60042E403 /* EZReadAloudPayload.h in CopyFiles */,
+				B2D8C42D1F26EEF60042E403 /* EZOnlineScorer.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		B21C1ACE1E9F73D3005CB84D /* EZOnlineScorer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EZOnlineScorer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B21C1ACE1E9F73D3005CB84D /* EZOnlineScorer-Framework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "EZOnlineScorer-Framework.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B21C1AD11E9F73D3005CB84D /* EZOnlineScorer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EZOnlineScorer.h; sourceTree = "<group>"; };
 		B21C1AD21E9F73D3005CB84D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B21C1ADA1EA07E26005CB84D /* EZOnlineScorerRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZOnlineScorerRecorder.h; sourceTree = "<group>"; };
@@ -48,14 +80,15 @@
 		B21C1AE71EA07E26005CB84D /* EZSemiOpenPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZSemiOpenPayload.m; sourceTree = "<group>"; };
 		B21C1AE91EA07E26005CB84D /* EZSRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZSRWebSocket.h; sourceTree = "<group>"; };
 		B21C1AEA1EA07E26005CB84D /* EZSRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZSRWebSocket.m; sourceTree = "<group>"; };
-		B21C1AEC1EA07E26005CB84D /* EZSpeexManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZSpeexManager.h; sourceTree = "<group>"; };
-		B21C1AED1EA07E26005CB84D /* EZSpeexManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZSpeexManager.m; sourceTree = "<group>"; };
-		B21C1AEE1EA07E26005CB84D /* Speex.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Speex.framework; sourceTree = "<group>"; };
-		B21C1AEF1EA07E26005CB84D /* voice.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = voice.c; sourceTree = "<group>"; };
-		B21C1AF01EA07E26005CB84D /* voice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = voice.h; sourceTree = "<group>"; };
 		B21C1B041EA07E2D005CB84D /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		B2334E791EE7A8BD0035261E /* EZASRPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZASRPayload.h; sourceTree = "<group>"; };
 		B2334E7A1EE7A8BD0035261E /* EZASRPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZASRPayload.m; sourceTree = "<group>"; };
+		B291ED3E1F25D61F00F421AD /* voice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = voice.h; sourceTree = "<group>"; };
+		B291ED3F1F25D61F00F421AD /* voice.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = voice.c; sourceTree = "<group>"; };
+		B291ED401F25D61F00F421AD /* EZSpeexManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZSpeexManager.m; sourceTree = "<group>"; };
+		B291ED411F25D61F00F421AD /* EZSpeexManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZSpeexManager.h; sourceTree = "<group>"; };
+		B291ED461F25D62C00F421AD /* libspeex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libspeex.a; path = EZOnlineScorer/Speex/libspeex.a; sourceTree = "<group>"; };
+		B2D8C4141F26ECF60042E403 /* libEZOnlineScorer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEZOnlineScorer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +97,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				B21C1B051EA07E2D005CB84D /* libicucore.tbd in Frameworks */,
-				B21C1B001EA07E26005CB84D /* Speex.framework in Frameworks */,
+				B291ED471F25D62C00F421AD /* libspeex.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B2D8C4111F26ECF60042E403 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2D8C4261F26EEA70042E403 /* libspeex.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +124,8 @@
 		B21C1ACF1E9F73D3005CB84D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B21C1ACE1E9F73D3005CB84D /* EZOnlineScorer.framework */,
+				B21C1ACE1E9F73D3005CB84D /* EZOnlineScorer-Framework.framework */,
+				B2D8C4141F26ECF60042E403 /* libEZOnlineScorer.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -156,11 +198,10 @@
 		B21C1AEB1EA07E26005CB84D /* Speex */ = {
 			isa = PBXGroup;
 			children = (
-				B21C1AEC1EA07E26005CB84D /* EZSpeexManager.h */,
-				B21C1AED1EA07E26005CB84D /* EZSpeexManager.m */,
-				B21C1AEE1EA07E26005CB84D /* Speex.framework */,
-				B21C1AEF1EA07E26005CB84D /* voice.c */,
-				B21C1AF01EA07E26005CB84D /* voice.h */,
+				B291ED3E1F25D61F00F421AD /* voice.h */,
+				B291ED3F1F25D61F00F421AD /* voice.c */,
+				B291ED401F25D61F00F421AD /* EZSpeexManager.m */,
+				B291ED411F25D61F00F421AD /* EZSpeexManager.h */,
 			);
 			path = Speex;
 			sourceTree = "<group>";
@@ -168,6 +209,7 @@
 		B21C1B031EA07E2D005CB84D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B291ED461F25D62C00F421AD /* libspeex.a */,
 				B21C1B041EA07E2D005CB84D /* libicucore.tbd */,
 			);
 			name = Frameworks;
@@ -183,23 +225,23 @@
 				B21C1AFC1EA07E26005CB84D /* EZSRWebSocket.h in Headers */,
 				B2334E7B1EE7A8BD0035261E /* EZASRPayload.h in Headers */,
 				B21C1AF81EA07E26005CB84D /* EZReadAloudPayload.h in Headers */,
+				B291ED451F25D61F00F421AD /* EZSpeexManager.h in Headers */,
 				B21C1AF71EA07E26005CB84D /* EZOnlineScorerRecorderPayload.h in Headers */,
 				B21C1AF11EA07E26005CB84D /* EZOnlineScorerRecorder.h in Headers */,
-				B21C1AFE1EA07E26005CB84D /* EZSpeexManager.h in Headers */,
 				B21C1AD31E9F73D3005CB84D /* EZOnlineScorer.h in Headers */,
 				B21C1AFA1EA07E26005CB84D /* EZSemiOpenPayload.h in Headers */,
 				B21C1AF31EA07E26005CB84D /* EZAudioReader.h in Headers */,
 				B21C1AF51EA07E26005CB84D /* EZAudioSocket.h in Headers */,
-				B21C1B021EA07E26005CB84D /* voice.h in Headers */,
+				B291ED421F25D61F00F421AD /* voice.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		B21C1ACD1E9F73D3005CB84D /* EZOnlineScorer */ = {
+		B21C1ACD1E9F73D3005CB84D /* EZOnlineScorer-Framework */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B21C1AD61E9F73D3005CB84D /* Build configuration list for PBXNativeTarget "EZOnlineScorer" */;
+			buildConfigurationList = B21C1AD61E9F73D3005CB84D /* Build configuration list for PBXNativeTarget "EZOnlineScorer-Framework" */;
 			buildPhases = (
 				B21C1AC91E9F73D3005CB84D /* Sources */,
 				B21C1ACA1E9F73D3005CB84D /* Frameworks */,
@@ -210,10 +252,27 @@
 			);
 			dependencies = (
 			);
+			name = "EZOnlineScorer-Framework";
+			productName = EZOnlineScorer;
+			productReference = B21C1ACE1E9F73D3005CB84D /* EZOnlineScorer-Framework.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		B2D8C4131F26ECF60042E403 /* EZOnlineScorer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B2D8C41A1F26ECF60042E403 /* Build configuration list for PBXNativeTarget "EZOnlineScorer" */;
+			buildPhases = (
+				B2D8C4101F26ECF60042E403 /* Sources */,
+				B2D8C4111F26ECF60042E403 /* Frameworks */,
+				B2D8C4121F26ECF60042E403 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
 			name = EZOnlineScorer;
 			productName = EZOnlineScorer;
-			productReference = B21C1ACE1E9F73D3005CB84D /* EZOnlineScorer.framework */;
-			productType = "com.apple.product-type.framework";
+			productReference = B2D8C4141F26ECF60042E403 /* libEZOnlineScorer.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -226,6 +285,11 @@
 				TargetAttributes = {
 					B21C1ACD1E9F73D3005CB84D = {
 						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = 8PJZBHFZQF;
+						ProvisioningStyle = Automatic;
+					};
+					B2D8C4131F26ECF60042E403 = {
+						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 8PJZBHFZQF;
 						ProvisioningStyle = Automatic;
 					};
@@ -243,7 +307,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B21C1ACD1E9F73D3005CB84D /* EZOnlineScorer */,
+				B21C1ACD1E9F73D3005CB84D /* EZOnlineScorer-Framework */,
+				B2D8C4131F26ECF60042E403 /* EZOnlineScorer */,
 			);
 		};
 /* End PBXProject section */
@@ -268,10 +333,26 @@
 				B21C1AFB1EA07E26005CB84D /* EZSemiOpenPayload.m in Sources */,
 				B21C1AFD1EA07E26005CB84D /* EZSRWebSocket.m in Sources */,
 				B21C1AF61EA07E26005CB84D /* EZAudioSocket.m in Sources */,
-				B21C1AFF1EA07E26005CB84D /* EZSpeexManager.m in Sources */,
 				B2334E7C1EE7A8BD0035261E /* EZASRPayload.m in Sources */,
-				B21C1B011EA07E26005CB84D /* voice.c in Sources */,
+				B291ED441F25D61F00F421AD /* EZSpeexManager.m in Sources */,
+				B291ED431F25D61F00F421AD /* voice.c in Sources */,
 				B21C1AF21EA07E26005CB84D /* EZOnlineScorerRecorder.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B2D8C4101F26ECF60042E403 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2D8C4221F26EDCB0042E403 /* EZASRPayload.m in Sources */,
+				B2D8C41F1F26EDC10042E403 /* EZSRWebSocket.m in Sources */,
+				B2D8C4251F26EDDB0042E403 /* EZOnlineScorerRecorder.m in Sources */,
+				B2D8C41E1F26EDBE0042E403 /* voice.c in Sources */,
+				B2D8C41D1F26EDBA0042E403 /* EZSpeexManager.m in Sources */,
+				B2D8C4201F26EDC30042E403 /* EZSemiOpenPayload.m in Sources */,
+				B2D8C4231F26EDD00042E403 /* EZAudioSocket.m in Sources */,
+				B2D8C4241F26EDD80042E403 /* EZAudioReader.m in Sources */,
+				B2D8C4211F26EDC70042E403 /* EZReadAloudPayload.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +401,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/EZOnlineScorer/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -366,6 +448,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/EZOnlineScorer/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
@@ -392,6 +475,10 @@
 				INFOPLIST_FILE = EZOnlineScorer/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EZOnlineScorer/Speex",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.liulishuo.EZOnlineScorer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -414,7 +501,39 @@
 				INFOPLIST_FILE = EZOnlineScorer/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EZOnlineScorer/Speex",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.liulishuo.EZOnlineScorer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		B2D8C41B1F26ECF60042E403 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 8PJZBHFZQF;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EZOnlineScorer/Speex",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B2D8C41C1F26ECF60042E403 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 8PJZBHFZQF;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EZOnlineScorer/Speex",
+				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -432,7 +551,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B21C1AD61E9F73D3005CB84D /* Build configuration list for PBXNativeTarget "EZOnlineScorer" */ = {
+		B21C1AD61E9F73D3005CB84D /* Build configuration list for PBXNativeTarget "EZOnlineScorer-Framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B21C1AD71E9F73D3005CB84D /* Debug */,
@@ -440,6 +559,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		B2D8C41A1F26ECF60042E403 /* Build configuration list for PBXNativeTarget "EZOnlineScorer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B2D8C41B1F26ECF60042E403 /* Debug */,
+				B2D8C41C1F26ECF60042E403 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
