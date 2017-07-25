@@ -514,11 +514,13 @@
 		B2D8C41B1F26ECF60042E403 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 8PJZBHFZQF;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EZOnlineScorer/Speex",
 				);
+				MACH_O_TYPE = mh_object;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -528,11 +530,13 @@
 		B2D8C41C1F26ECF60042E403 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 8PJZBHFZQF;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EZOnlineScorer/Speex",
 				);
+				MACH_O_TYPE = mh_object;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
