@@ -44,7 +44,7 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
     return error;
 }
 
-@interface EZAudioSocket () <EZSRWebSocketDelegate>
+@interface EZAudioSocket () <EZSRWebSocketDelegate, EZSpeexManagerDelegate>
 
 @property (nonnull, nonatomic, strong) NSURL *socketURL;
 @property (nonnull, nonatomic, strong) EZSRWebSocket *webSocket;
@@ -131,13 +131,8 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
     if (self.webSocket.readyState != SR_OPEN) return;
     
     if (self.useSpeex) {
-        [self.speexManager appendPcmData:self.audioBuffer];
-        NSData *encodeData = [self.speexManager getEncodeData:NO];
-        if (encodeData.length != 0) {
-            [self.webSocket send:encodeData];
-        }
-    }
-    else if (self.audioBuffer.length != 0) {
+        [self.speexManager appendPcmData:self.audioBuffer isEnd:NO];
+    } else if (self.audioBuffer.length != 0) {
         [self.webSocket send:self.audioBuffer];
     }
     
@@ -268,6 +263,7 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
 {
     if (!_speexManager) {
         _speexManager = [EZSpeexManager new];
+        _speexManager.delegate = self;
     }
     return _speexManager;
 }
@@ -306,6 +302,14 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
 #if DEBUG
     NSLog(@"webSocket closed with code: %zd reason: %@ wasClean: %i", code, reason, wasClean);
 #endif
+}
+
+#pragma mark - EZSpeexManagerDelegate
+
+- (void)speexManager:(EZSpeexManager *)speexManager didGenerateSpeexData:(NSData *)data
+{
+    if (self.webSocket.readyState != SR_OPEN) return;
+    [self.webSocket send:data];
 }
 
 @end

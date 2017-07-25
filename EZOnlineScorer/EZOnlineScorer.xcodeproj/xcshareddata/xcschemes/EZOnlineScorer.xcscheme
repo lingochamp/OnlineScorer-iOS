@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B21C1ACD1E9F73D3005CB84D"
-               BuildableName = "EZOnlineScorer.framework"
-               BlueprintName = "EZOnlineScorer"
+               BuildableName = "EZOnlineScorer-Framework.framework"
+               BlueprintName = "EZOnlineScorer-Framework"
                ReferencedContainer = "container:EZOnlineScorer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,8 +46,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B21C1ACD1E9F73D3005CB84D"
-            BuildableName = "EZOnlineScorer.framework"
-            BlueprintName = "EZOnlineScorer"
+            BuildableName = "EZOnlineScorer-Framework.framework"
+            BlueprintName = "EZOnlineScorer-Framework"
             ReferencedContainer = "container:EZOnlineScorer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,8 +64,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B21C1ACD1E9F73D3005CB84D"
-            BuildableName = "EZOnlineScorer.framework"
-            BlueprintName = "EZOnlineScorer"
+            BuildableName = "EZOnlineScorer-Framework.framework"
+            BlueprintName = "EZOnlineScorer-Framework"
             ReferencedContainer = "container:EZOnlineScorer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -86,8 +86,8 @@
                   <BuildableReference
                      BuildableIdentifier = "primary"
                      BlueprintIdentifier = "B21C1ACD1E9F73D3005CB84D"
-                     BuildableName = "EZOnlineScorer.framework"
-                     BlueprintName = "EZOnlineScorer"
+                     BuildableName = "EZOnlineScorer-Framework.framework"
+                     BlueprintName = "EZOnlineScorer-Framework"
                      ReferencedContainer = "container:EZOnlineScorer.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>
