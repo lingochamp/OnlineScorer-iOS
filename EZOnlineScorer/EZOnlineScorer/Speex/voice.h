@@ -1,7 +1,7 @@
 #ifndef VOICE_H
 #define VOICE_H
 
-#include <Speex/speex.h>
+#include "speex.h"
 
 struct SpeexStruct {
     void *enc_state;

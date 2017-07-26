@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../EZOnlineScorer/EZOnlineScorer.xcodeproj">
+      location = "group:OnlineScorerExample.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:OnlineScorerExample.xcodeproj">
+      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

@@ -1,0 +1,16 @@
+PODS:
+  - EZOnlineScorer (0.0.1)
+
+DEPENDENCIES:
+  - EZOnlineScorer (from `../`)
+
+EXTERNAL SOURCES:
+  EZOnlineScorer:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  EZOnlineScorer: ef9d3d6f329156ba4931f43e645a60621c16ad9f
+
+PODFILE CHECKSUM: 9dc6abfc69b3666dd35e7222f37bca32dc9ce34d
+
+COCOAPODS: 1.2.1

@@ -7,14 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2151884031A7780FF097D153 /* Pods_OnlineScorerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04BA7BB394430C5D5BBA152E /* Pods_OnlineScorerExample.framework */; };
 		B21C1B161EA08015005CB84D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21C1B151EA08015005CB84D /* AppDelegate.swift */; };
 		B21C1B181EA08015005CB84D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21C1B171EA08015005CB84D /* ViewController.swift */; };
 		B21C1B1B1EA08015005CB84D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B21C1B191EA08015005CB84D /* Main.storyboard */; };
 		B21C1B1D1EA08015005CB84D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B21C1B1C1EA08015005CB84D /* Assets.xcassets */; };
 		B21C1B201EA08015005CB84D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B21C1B1E1EA08015005CB84D /* LaunchScreen.storyboard */; };
 		B21C1B291EA080E3005CB84D /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B21C1B281EA080E3005CB84D /* libicucore.tbd */; };
-		B21C1B2B1EA080E6005CB84D /* EZOnlineScorer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21C1B2A1EA080E6005CB84D /* EZOnlineScorer.framework */; };
-		B21C1B2C1EA080E6005CB84D /* EZOnlineScorer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B21C1B2A1EA080E6005CB84D /* EZOnlineScorer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +23,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B21C1B2C1EA080E6005CB84D /* EZOnlineScorer.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -32,6 +30,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		04BA7BB394430C5D5BBA152E /* Pods_OnlineScorerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OnlineScorerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D5092F38893C51957A5A9FB /* Pods-OnlineScorerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnlineScorerExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-OnlineScorerExample/Pods-OnlineScorerExample.release.xcconfig"; sourceTree = "<group>"; };
+		78E050FF5514ACD908DBC652 /* Pods-OnlineScorerExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnlineScorerExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OnlineScorerExample/Pods-OnlineScorerExample.debug.xcconfig"; sourceTree = "<group>"; };
 		B21C1B121EA08015005CB84D /* OnlineScorerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnlineScorerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B21C1B151EA08015005CB84D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B21C1B171EA08015005CB84D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,7 +41,7 @@
 		B21C1B1F1EA08015005CB84D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B21C1B211EA08015005CB84D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B21C1B281EA080E3005CB84D /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
-		B21C1B2A1EA080E6005CB84D /* EZOnlineScorer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EZOnlineScorer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2D8C4361F2835540042E403 /* OnlineScorerExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OnlineScorerExample-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,20 +49,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B21C1B2B1EA080E6005CB84D /* EZOnlineScorer.framework in Frameworks */,
 				B21C1B291EA080E3005CB84D /* libicucore.tbd in Frameworks */,
+				2151884031A7780FF097D153 /* Pods_OnlineScorerExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AD71F40409A9BC69F79E300E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				78E050FF5514ACD908DBC652 /* Pods-OnlineScorerExample.debug.xcconfig */,
+				3D5092F38893C51957A5A9FB /* Pods-OnlineScorerExample.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		B21C1B091EA08015005CB84D = {
 			isa = PBXGroup;
 			children = (
 				B21C1B141EA08015005CB84D /* OnlineScorerExample */,
 				B21C1B131EA08015005CB84D /* Products */,
 				B21C1B271EA080E3005CB84D /* Frameworks */,
+				AD71F40409A9BC69F79E300E /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -82,6 +93,7 @@
 				B21C1B1C1EA08015005CB84D /* Assets.xcassets */,
 				B21C1B1E1EA08015005CB84D /* LaunchScreen.storyboard */,
 				B21C1B211EA08015005CB84D /* Info.plist */,
+				B2D8C4361F2835540042E403 /* OnlineScorerExample-Bridging-Header.h */,
 			);
 			path = OnlineScorerExample;
 			sourceTree = "<group>";
@@ -89,8 +101,8 @@
 		B21C1B271EA080E3005CB84D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B21C1B2A1EA080E6005CB84D /* EZOnlineScorer.framework */,
 				B21C1B281EA080E3005CB84D /* libicucore.tbd */,
+				04BA7BB394430C5D5BBA152E /* Pods_OnlineScorerExample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -102,10 +114,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B21C1B241EA08015005CB84D /* Build configuration list for PBXNativeTarget "OnlineScorerExample" */;
 			buildPhases = (
+				A7AAA7950BBF7A9193637D97 /* [CP] Check Pods Manifest.lock */,
 				B21C1B0E1EA08015005CB84D /* Sources */,
 				B21C1B0F1EA08015005CB84D /* Frameworks */,
 				B21C1B101EA08015005CB84D /* Resources */,
 				B21C1B2D1EA080E6005CB84D /* Embed Frameworks */,
+				30A9BE2B22084472D535672E /* [CP] Embed Pods Frameworks */,
+				0F6C0165991A4A604A875254 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -163,6 +178,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0F6C0165991A4A604A875254 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OnlineScorerExample/Pods-OnlineScorerExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		30A9BE2B22084472D535672E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OnlineScorerExample/Pods-OnlineScorerExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A7AAA7950BBF7A9193637D97 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B21C1B0E1EA08015005CB84D /* Sources */ = {
@@ -242,6 +305,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "OnlineScorerExample/OnlineScorerExample-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -284,6 +348,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "OnlineScorerExample/OnlineScorerExample-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -291,6 +356,7 @@
 		};
 		B21C1B251EA08015005CB84D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 78E050FF5514ACD908DBC652 /* Pods-OnlineScorerExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 8PJZBHFZQF;
@@ -305,6 +371,7 @@
 		};
 		B21C1B261EA08015005CB84D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D5092F38893C51957A5A9FB /* Pods-OnlineScorerExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 8PJZBHFZQF;
