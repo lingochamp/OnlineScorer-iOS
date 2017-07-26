@@ -8,10 +8,33 @@ OnlineScorer for iOS.
 
 OnlineScorer require development target iOS 8.0 or later.
 
-OnlineScorer currently only available by dragging `EZOnlineScorer.xcodeproj` into your project/workspace, 
-as Dynamic Framework. CocoaPods and Carthage support will be latter on as well as static library support (no guarantee).
+OnlineScorer is available as dynamic framework or static library. There are two ways to use
+ OnlineScorer in your project:
+- using CocoaPods
+- manually installation
 
-After adding xcodeproj file into your project, do as following.
+We highly recommend using CocoaPods to intergrate OnlineScorer into your project.
+
+### Installation with CocoaPods
+
+[CocoaPods](http://cocoapods.org/) is a dependency manager for Objective-C, which automates 
+and simplifies the process of using 3rd-party libraries in your projects. See the 
+[Get Started](http://cocoapods.org/#get_started) section for more details.
+
+#### Podfile
+```
+platform :ios, '8.0'
+use_frameworks!
+
+pod 'EZOnlineScorer-Framework'
+```
+
+### Manually Installation
+
+You can download latest libraries at [OnlineScorer-iOS](https://github.com/lingochamp/OnlineScorer-iOS)
+
+After clone or download OnlineScorer into you project source directory, dragging 
+`EZOnlineScorer.xcodeproj` into your project/workspace, then do as following.
 
 1. Go to "General" tab in target settings. In "Embedded Binaries" section, click plus button and add "EZOnlineScorer.framework".
 
@@ -72,10 +95,25 @@ Call stopRecording() when finish recording. EZOnlineScorerRecorder need time to 
 
 使用 OnlineScorer 需要 deployment target 为 iOS8.0 以上。
 
-OnlineScorer 当前仅支持把项目的 `EZOnlineScorer.xcodeproj` 文件拖进你的 project/workspace 中以动态链接库的形式集成。
-CocoaPods 和 Carthage 支持，以及静态库支持在计划中，但不做任何保证。
+OnlineScorer 动态链接库和静态库两种版本，支持CocoaPods和手动安装两种集成方式。我们强烈推荐使用 CocoaPods 集成。
 
-把项目的 `EZOnlineScorer.xcodeproj` 文件拖进你的 project/workspace 后，
+### 使用 CocoaPods 集成
+
+[CocoaPods](http://cocoapods.org/) 是 Objective-C 和 Swift 的包管理工具。关于如何使用 CocoaPods, 请参阅 [Get Started](http://cocoapods.org/#get_started).
+
+#### Podfile
+```
+platform :ios, '8.0'
+use_frameworks!
+
+pod 'EZOnlineScorer-Framework'
+```
+
+### 手动集成
+
+你可以在 [OnlineScorer-iOS](https://github.com/lingochamp/OnlineScorer-iOS) 下载到最新版本的 OnlineScorer.
+
+当你下载或克隆 OnlineScorer 到你项目目录后，将`EZOnlineScorer.xcodeproj` 文件拖进你的 project/workspace 中，然后按下面的说明进行配置。
 
 1. 在项目的 target settings 中的 "General" tab，点击 "Embedded Binaries" 下方加号，添加 "EZOnlineScorer.framework"。
 2. 继续在"General" tab，点击 "Linked Frameworks and Libraries" 下方加号，添加 "libicucore.tbd"。
