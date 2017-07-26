@@ -64,7 +64,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B21C1ACE1E9F73D3005CB84D /* EZOnlineScorer-Framework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "EZOnlineScorer-Framework.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B21C1ACE1E9F73D3005CB84D /* EZOnlineScorer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EZOnlineScorer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B21C1AD11E9F73D3005CB84D /* EZOnlineScorer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EZOnlineScorer.h; sourceTree = "<group>"; };
 		B21C1AD21E9F73D3005CB84D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B21C1ADA1EA07E26005CB84D /* EZOnlineScorerRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZOnlineScorerRecorder.h; sourceTree = "<group>"; };
@@ -89,6 +89,13 @@
 		B291ED411F25D61F00F421AD /* EZSpeexManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZSpeexManager.h; sourceTree = "<group>"; };
 		B291ED461F25D62C00F421AD /* libspeex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libspeex.a; path = EZOnlineScorer/Speex/libspeex.a; sourceTree = "<group>"; };
 		B2D8C4141F26ECF60042E403 /* libEZOnlineScorer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEZOnlineScorer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2D8C42F1F27655F0042E403 /* speex_bits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_bits.h; sourceTree = "<group>"; };
+		B2D8C4301F27655F0042E403 /* speex_callbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_callbacks.h; sourceTree = "<group>"; };
+		B2D8C4311F27655F0042E403 /* speex_config_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_config_types.h; sourceTree = "<group>"; };
+		B2D8C4321F27655F0042E403 /* speex_header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_header.h; sourceTree = "<group>"; };
+		B2D8C4331F27655F0042E403 /* speex_stereo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_stereo.h; sourceTree = "<group>"; };
+		B2D8C4341F27655F0042E403 /* speex_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_types.h; sourceTree = "<group>"; };
+		B2D8C4351F27655F0042E403 /* speex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,7 +131,7 @@
 		B21C1ACF1E9F73D3005CB84D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B21C1ACE1E9F73D3005CB84D /* EZOnlineScorer-Framework.framework */,
+				B21C1ACE1E9F73D3005CB84D /* EZOnlineScorer.framework */,
 				B2D8C4141F26ECF60042E403 /* libEZOnlineScorer.a */,
 			);
 			name = Products;
@@ -198,6 +205,13 @@
 		B21C1AEB1EA07E26005CB84D /* Speex */ = {
 			isa = PBXGroup;
 			children = (
+				B2D8C42F1F27655F0042E403 /* speex_bits.h */,
+				B2D8C4301F27655F0042E403 /* speex_callbacks.h */,
+				B2D8C4311F27655F0042E403 /* speex_config_types.h */,
+				B2D8C4321F27655F0042E403 /* speex_header.h */,
+				B2D8C4331F27655F0042E403 /* speex_stereo.h */,
+				B2D8C4341F27655F0042E403 /* speex_types.h */,
+				B2D8C4351F27655F0042E403 /* speex.h */,
 				B291ED3E1F25D61F00F421AD /* voice.h */,
 				B291ED3F1F25D61F00F421AD /* voice.c */,
 				B291ED401F25D61F00F421AD /* EZSpeexManager.m */,
@@ -254,7 +268,7 @@
 			);
 			name = "EZOnlineScorer-Framework";
 			productName = EZOnlineScorer;
-			productReference = B21C1ACE1E9F73D3005CB84D /* EZOnlineScorer-Framework.framework */;
+			productReference = B21C1ACE1E9F73D3005CB84D /* EZOnlineScorer.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		B2D8C4131F26ECF60042E403 /* EZOnlineScorer */ = {
@@ -401,7 +415,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/EZOnlineScorer/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -448,7 +461,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/EZOnlineScorer/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
@@ -480,7 +492,7 @@
 					"$(PROJECT_DIR)/EZOnlineScorer/Speex",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.liulishuo.EZOnlineScorer;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = EZOnlineScorer;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -506,7 +518,7 @@
 					"$(PROJECT_DIR)/EZOnlineScorer/Speex",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.liulishuo.EZOnlineScorer;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = EZOnlineScorer;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -571,6 +583,7 @@
 				B2D8C41C1F26ECF60042E403 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

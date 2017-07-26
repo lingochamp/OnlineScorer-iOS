@@ -8,6 +8,8 @@
 
 import UIKit
 import AVFoundation
+
+// comment next line if NO `use_frameworks!` mark in Podfile
 import EZOnlineScorer
 
 class ViewController: UIViewController {
