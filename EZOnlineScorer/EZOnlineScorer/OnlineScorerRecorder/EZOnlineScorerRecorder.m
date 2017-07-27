@@ -9,6 +9,7 @@
 #import "EZOnlineScorerRecorder.h"
 #import "EZAudioSocket.h"
 #import "EZAudioReader.h"
+#import "EZLogger.h"
 #import <CommonCrypto/CommonDigest.h>
 
 NSString *const kEZOnlineScorerRecorderErrorDomain = @"EZOnlineScorerRecorderError";
@@ -97,6 +98,16 @@ static NSURL *_socketURL;
     _socketURL = [socketURL copy];
 }
 
++ (void)setDebugMode:(BOOL)enabled
+{
+    [EZLogger configLogDestination:enabled ? EZLogDestinationConsole|EZLogDestinationFile : EZLogDestinationNone];
+}
+
++ (void)exportDebugLog:(void (^__nonnull) (NSError *_Nullable error, NSURL *_Nullable logURL))completion
+{
+    [EZLogger generateCombinedLog:completion];
+}
+
 #pragma mark - initializer
 
 - (instancetype _Nullable)init
@@ -136,9 +147,7 @@ static NSURL *_socketURL;
     self.audioSocket.delegate = nil;
     [self.audioReader stop];
     [self.audioSocket closeImmediately];
-#if DEBUG
-    NSLog(@"EZOnlineScorerRecorder dealloc");
-#endif
+    EZLog(@"EZOnlineScorerRecorder dealloc");
 }
 
 #pragma mark - setter & getter
@@ -166,14 +175,10 @@ static NSURL *_socketURL;
     BOOL isDir = NO;
     NSError *error = nil;
     if (![fileManager fileExistsAtPath:tempPath isDirectory:&isDir]) {
-#if DEBUG
-        NSLog(@"Directory does not exist at dirPath %@", tempPath);
-#endif
+        EZLog(@"Directory does not exist at dirPath %@", tempPath);
         
         if (![fileManager createDirectoryAtPath:tempPath withIntermediateDirectories:YES attributes:nil error:&error]) {
-#if DEBUG
-            NSLog(@"=== error: %@", error.debugDescription);
-#endif
+            EZLog(@"=== error: %@", error.debugDescription);
         }
     }
     NSURL *tempDir = [NSURL fileURLWithPath:tempPath isDirectory:YES];
@@ -301,9 +306,7 @@ static NSURL *_socketURL;
 
 - (void)audioSocket:(EZAudioSocket * _Nonnull)audioSocket didReceiveData:(id _Nonnull)data
 {
-#if DEBUG
-    NSLog(@"audioSocket didReceiveData");
-#endif
+    EZLog(@"audioSocket didReceiveData");
     
     if (self.disposal) return;
     self.processing = NO;
@@ -321,9 +324,7 @@ static NSURL *_socketURL;
 
 - (void)audioSocket:(EZAudioSocket * _Nonnull)audioSocket didFailWithError:(NSError * _Nullable)error
 {
-#if DEBUG
-    NSLog(@"audioSocket didFailWithError: %@", error);
-#endif
+    EZLog(@"audioSocket didFailWithError: %@", error);
     
     self.processing = NO;
     self.audioSocket.delegate = nil;
@@ -339,9 +340,7 @@ static NSURL *_socketURL;
 
 - (void)audioReader:(EZAudioReader * _Nonnull)reader didFailWithError:(NSError * _Nonnull)error
 {
-#if DEBUG
-    NSLog(@"audioReader didFailWithError: %@", error);
-#endif
+    EZLog(@"audioReader didFailWithError: %@", error);
     
     self.recordFailed = YES;
     if (self.disposal) return;
@@ -351,9 +350,7 @@ static NSURL *_socketURL;
 
 - (void)audioReaderDidBeginReading:(EZAudioReader * _Nonnull)reader
 {
-#if DEBUG
-    NSLog(@"audioReaderDidBeginReading");
-#endif
+    EZLog(@"audioReaderDidBeginReading");
     
     if (self.disposal) return;
 
@@ -389,9 +386,7 @@ static NSURL *_socketURL;
 
 - (void)engzoAudioRecorderDidStop:(EZAudioReader * _Nonnull)reader
 {
-#if DEBUG
-    NSLog(@"engzoAudioRecorderDidStop");
-#endif
+    EZLog(@"engzoAudioRecorderDidStop");
     
     self.recordStopped = YES;
     if (self.disposal) return;

@@ -119,6 +119,7 @@ class ViewController: UIViewController {
                 EZOnlineScorerRecorder.setSocketURL(socketURL)
             }
             
+            EZOnlineScorerRecorder.setDebugMode(true)
             self?.setupRecordUI()
         }))
 
@@ -224,7 +225,7 @@ extension ViewController: UITableViewDataSource {
         case 0:
             return 3
         case 1:
-            return 7
+            return 8
         case 2:
             return 1
         default:
@@ -290,6 +291,10 @@ extension ViewController: UITableViewDataSource {
             cell.accessoryType = .none
             cell.textLabel?.text = "play"
             cell.detailTextLabel?.text = ""
+        case (1, 7):
+            cell.accessoryType = .none
+            cell.textLabel?.text = "export debug log"
+            cell.detailTextLabel?.text = ""
         case (2, 0):
             cell.accessoryType = .none
             cell.textLabel?.text = reportDescription
@@ -346,6 +351,16 @@ extension ViewController: UITableViewDelegate {
             setupScorer()
         case (1, 6):
             play()
+        case (1, 7):
+            EZOnlineScorerRecorder.exportDebugLog { _, logURL in
+                if logURL != nil {
+                    DispatchQueue.main.async {
+                        let activityViewController = UIActivityViewController(activityItems: [logURL!], applicationActivities: nil)
+                        self.present(activityViewController, animated: true, completion: nil)
+                    }
+                    
+                }
+            }
         default:
             break
         }

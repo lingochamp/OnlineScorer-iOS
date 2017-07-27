@@ -9,6 +9,7 @@
 #import "EZAudioSocket.h"
 #import "EZSRWebSocket.h"
 #import "EZSpeexManager.h"
+#import "EZLogger.h"
 
 NSString *const kEZAudioSocketErrorDomain = @"EZAudioSocketError";
 NSString *const kEZAudioSocketErrorSocketClosedDescription = @"Audio socket failed to send data because socket connnection already closed.";
@@ -64,9 +65,7 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
 - (void)dealloc
 {
     [self closeImmediately];
-#if DEBUG
-    NSLog(@"AudioSocket dealloc");
-#endif
+    EZLog(@"AudioSocket dealloc");
 }
 
 - (instancetype _Nonnull)initWithSocketURL:(NSURL * _Nonnull)socketURL metaData:(NSData * _Nonnull)metaData useSpeex:(BOOL)useSpeex
@@ -299,9 +298,7 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
 - (void)webSocket:(EZSRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean
 {
     self.readyToClose = YES;
-#if DEBUG
-    NSLog(@"webSocket closed with code: %zd reason: %@ wasClean: %i", code, reason, wasClean);
-#endif
+    EZLog(@"webSocket closed with code: %zd reason: %@ wasClean: %i", code, reason, wasClean);
 }
 
 #pragma mark - EZSpeexManagerDelegate
