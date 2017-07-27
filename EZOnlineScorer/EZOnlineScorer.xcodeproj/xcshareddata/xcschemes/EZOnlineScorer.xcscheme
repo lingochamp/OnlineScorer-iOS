@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B21C1ACD1E9F73D3005CB84D"
-               BuildableName = "EZOnlineScorer-Framework.framework"
+               BuildableName = "EZOnlineScorer.framework"
                BlueprintName = "EZOnlineScorer-Framework"
                ReferencedContainer = "container:EZOnlineScorer.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B21C1ACD1E9F73D3005CB84D"
-            BuildableName = "EZOnlineScorer-Framework.framework"
+            BuildableName = "EZOnlineScorer.framework"
             BlueprintName = "EZOnlineScorer-Framework"
             ReferencedContainer = "container:EZOnlineScorer.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B21C1ACD1E9F73D3005CB84D"
-            BuildableName = "EZOnlineScorer-Framework.framework"
+            BuildableName = "EZOnlineScorer.framework"
             BlueprintName = "EZOnlineScorer-Framework"
             ReferencedContainer = "container:EZOnlineScorer.xcodeproj">
          </BuildableReference>
@@ -86,7 +86,7 @@
                   <BuildableReference
                      BuildableIdentifier = "primary"
                      BlueprintIdentifier = "B21C1ACD1E9F73D3005CB84D"
-                     BuildableName = "EZOnlineScorer-Framework.framework"
+                     BuildableName = "EZOnlineScorer.framework"
                      BlueprintName = "EZOnlineScorer-Framework"
                      ReferencedContainer = "container:EZOnlineScorer.xcodeproj">
                   </BuildableReference>

@@ -149,9 +149,28 @@ typedef NS_ENUM(NSUInteger, EZOnlineScorerRecorderError) {
  */
 @property (readonly, getter=isProcessing) BOOL processing;
 
-//only first call to this method has effect.
+/**
+ configure AppID and secret. Note that only first call to this method has effect.
+
+ @param appID OnlineScorer appID
+ @param secret OnlineScorer secret
+ */
 + (void)configureAppID:(NSString * _Nonnull)appID secret:(NSString * _Nonnull)secret;
 + (void)setSocketURL:(NSURL * _Nonnull)socketURL;
+
+/**
+ Enable debug mode will print scorer log to console & temp log file.
+
+ @param enabled enable log file or not.
+ */
++ (void)setDebugMode:(BOOL)enabled;
+
+/**
+ Export debug log file. You can provide log file to SDK developer for help.
+
+ @param completion Scorer will call completion on background thread when error occoured or log file generated.
+ */
++ (void)exportDebugLog:(void (^__nonnull) (NSError *_Nullable error, NSURL *_Nullable logURL))completion;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wnullability"
@@ -164,8 +183,6 @@ typedef NS_ENUM(NSUInteger, EZOnlineScorerRecorderError) {
  
  Note: Use multiple EZOnlineScorerRecorder at once is DISALLOWED. It may cause serious memory issue
  and could crash your app.
- 
- EZOnlineScorerRecorder 的 Designed initializer。
  
  注意：严禁同时使用多个 EZOnlineScorerRecorder。这会导致严重的内存泄露问题并有可能使 App 崩溃。
  

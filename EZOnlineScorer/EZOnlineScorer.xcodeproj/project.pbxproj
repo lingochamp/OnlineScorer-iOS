@@ -44,6 +44,11 @@
 		B2D8C42B1F26EEF60042E403 /* EZReadAloudPayload.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B21C1AE41EA07E26005CB84D /* EZReadAloudPayload.h */; };
 		B2D8C42D1F26EEF60042E403 /* EZOnlineScorer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B21C1AD11E9F73D3005CB84D /* EZOnlineScorer.h */; };
 		B2D8C42E1F26EFEB0042E403 /* EZASRPayload.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B2334E791EE7A8BD0035261E /* EZASRPayload.h */; };
+		B2D8C43A1F2861F70042E403 /* EZLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B2D8C4381F2861F70042E403 /* EZLogger.h */; };
+		B2D8C43B1F2861F70042E403 /* EZLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8C4391F2861F70042E403 /* EZLogger.m */; };
+		B2D8C43C1F2861F70042E403 /* EZLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8C4391F2861F70042E403 /* EZLogger.m */; };
+		B2D8C4411F299F0A0042E403 /* NSString+FilePath.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8C4401F299F0A0042E403 /* NSString+FilePath.m */; };
+		B2D8C4421F299F130042E403 /* NSString+FilePath.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8C4401F299F0A0042E403 /* NSString+FilePath.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -96,6 +101,10 @@
 		B2D8C4331F27655F0042E403 /* speex_stereo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_stereo.h; sourceTree = "<group>"; };
 		B2D8C4341F27655F0042E403 /* speex_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_types.h; sourceTree = "<group>"; };
 		B2D8C4351F27655F0042E403 /* speex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex.h; sourceTree = "<group>"; };
+		B2D8C4381F2861F70042E403 /* EZLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EZLogger.h; path = Log/EZLogger.h; sourceTree = "<group>"; };
+		B2D8C4391F2861F70042E403 /* EZLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EZLogger.m; path = Log/EZLogger.m; sourceTree = "<group>"; };
+		B2D8C43F1F299F0A0042E403 /* NSString+FilePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+FilePath.h"; path = "Utility/NSString+FilePath.h"; sourceTree = "<group>"; };
+		B2D8C4401F299F0A0042E403 /* NSString+FilePath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+FilePath.m"; path = "Utility/NSString+FilePath.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +149,8 @@
 		B21C1AD01E9F73D3005CB84D /* EZOnlineScorer */ = {
 			isa = PBXGroup;
 			children = (
+				B2D8C43E1F299EFB0042E403 /* Utility */,
+				B2D8C4371F284D4A0042E403 /* Logger */,
 				B21C1AD91EA07E26005CB84D /* OnlineScorerRecorder */,
 				B21C1ADC1EA07E26005CB84D /* Recorder */,
 				B21C1ADF1EA07E26005CB84D /* AudioSocket */,
@@ -229,6 +240,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B2D8C4371F284D4A0042E403 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				B2D8C4381F2861F70042E403 /* EZLogger.h */,
+				B2D8C4391F2861F70042E403 /* EZLogger.m */,
+			);
+			name = Logger;
+			sourceTree = "<group>";
+		};
+		B2D8C43E1F299EFB0042E403 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				B2D8C43F1F299F0A0042E403 /* NSString+FilePath.h */,
+				B2D8C4401F299F0A0042E403 /* NSString+FilePath.m */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -242,6 +271,7 @@
 				B291ED451F25D61F00F421AD /* EZSpeexManager.h in Headers */,
 				B21C1AF71EA07E26005CB84D /* EZOnlineScorerRecorderPayload.h in Headers */,
 				B21C1AF11EA07E26005CB84D /* EZOnlineScorerRecorder.h in Headers */,
+				B2D8C43A1F2861F70042E403 /* EZLogger.h in Headers */,
 				B21C1AD31E9F73D3005CB84D /* EZOnlineScorer.h in Headers */,
 				B21C1AFA1EA07E26005CB84D /* EZSemiOpenPayload.h in Headers */,
 				B21C1AF31EA07E26005CB84D /* EZAudioReader.h in Headers */,
@@ -344,11 +374,13 @@
 			files = (
 				B21C1AF41EA07E26005CB84D /* EZAudioReader.m in Sources */,
 				B21C1AF91EA07E26005CB84D /* EZReadAloudPayload.m in Sources */,
+				B2D8C4421F299F130042E403 /* NSString+FilePath.m in Sources */,
 				B21C1AFB1EA07E26005CB84D /* EZSemiOpenPayload.m in Sources */,
 				B21C1AFD1EA07E26005CB84D /* EZSRWebSocket.m in Sources */,
 				B21C1AF61EA07E26005CB84D /* EZAudioSocket.m in Sources */,
 				B2334E7C1EE7A8BD0035261E /* EZASRPayload.m in Sources */,
 				B291ED441F25D61F00F421AD /* EZSpeexManager.m in Sources */,
+				B2D8C43B1F2861F70042E403 /* EZLogger.m in Sources */,
 				B291ED431F25D61F00F421AD /* voice.c in Sources */,
 				B21C1AF21EA07E26005CB84D /* EZOnlineScorerRecorder.m in Sources */,
 			);
@@ -360,11 +392,13 @@
 			files = (
 				B2D8C4221F26EDCB0042E403 /* EZASRPayload.m in Sources */,
 				B2D8C41F1F26EDC10042E403 /* EZSRWebSocket.m in Sources */,
+				B2D8C4411F299F0A0042E403 /* NSString+FilePath.m in Sources */,
 				B2D8C4251F26EDDB0042E403 /* EZOnlineScorerRecorder.m in Sources */,
 				B2D8C41E1F26EDBE0042E403 /* voice.c in Sources */,
 				B2D8C41D1F26EDBA0042E403 /* EZSpeexManager.m in Sources */,
 				B2D8C4201F26EDC30042E403 /* EZSemiOpenPayload.m in Sources */,
 				B2D8C4231F26EDD00042E403 /* EZAudioSocket.m in Sources */,
+				B2D8C43C1F2861F70042E403 /* EZLogger.m in Sources */,
 				B2D8C4241F26EDD80042E403 /* EZAudioReader.m in Sources */,
 				B2D8C4211F26EDC70042E403 /* EZReadAloudPayload.m in Sources */,
 			);
