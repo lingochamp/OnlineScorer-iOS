@@ -29,6 +29,8 @@ typedef NS_ENUM(NSUInteger, EZAudioSocketError) {
     EZAudioSocketErrorConnectionError,
 };
 
+extern NSString * _Nullable const kEZAudioSocketErrorDomain;
+
 @class EZAudioSocket;
 
 
@@ -51,6 +53,9 @@ typedef NS_ENUM(NSUInteger, EZAudioSocketError) {
 
 - (instancetype _Nonnull)initWithSocketURL:(NSURL * _Nonnull)socketURL metaData:(NSData * _Nonnull)metaData useSpeex:(BOOL)useSpeex;
 
+- (void)open;
+
+/// websocket will automatically open if not opened yet.
 - (BOOL)write:(NSData * _Nonnull)data error:(NSError * _Nullable * _Nullable)error;
 
 /// send end of stream to server and wait for response

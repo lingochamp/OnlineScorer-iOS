@@ -77,23 +77,27 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
         _useSpeex = useSpeex;
         _audioBuffer = [NSMutableData new];
         _webSocket = [[EZSRWebSocket alloc] initWithURL:socketURL];
+        [_webSocket setDelegateDispatchQueue:dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0)];
         _webSocket.delegate = self;
-        [_webSocket open];
-        
-        //SR_CONNECTING timeout
-        __weak typeof(self) weakSelf = self;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
-            if (weakSelf.webSocket && weakSelf.webSocket.readyState == SR_CONNECTING) {
-                [self.delegate audioSocket:self didFailWithError:errorForAudioSocketErrorCode(EZAudioSocketErrorConnectionError, nil)];
-                [weakSelf closeImmediately];
-            }
-        });
     }
     return self;
 }
 
 #pragma mark - Business logic
 
+- (void)open
+{
+    [self.webSocket open];
+    
+    //SR_CONNECTING timeout
+    __weak typeof(self) weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
+        if (weakSelf.webSocket && weakSelf.webSocket.readyState == SR_CONNECTING) {
+            [self.delegate audioSocket:self didFailWithError:errorForAudioSocketErrorCode(EZAudioSocketErrorConnectionError, nil)];
+            [weakSelf closeImmediately];
+        }
+    });
+}
 
 - (BOOL)write:(NSData * _Nonnull)data error:(NSError * _Nullable * _Nullable)error
 {
@@ -104,7 +108,9 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
     
     [self.audioBuffer appendData:data];
     
-    if (self.webSocket.readyState == SR_OPEN) {
+    if (self.webSocket.readyState == SR_CONNECTING) {
+        [self.webSocket open];
+    } else if (self.webSocket.readyState == SR_OPEN) {
         [self sendPendingData];
     }
     

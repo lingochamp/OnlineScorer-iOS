@@ -31,4 +31,9 @@
              @"reftext": self.referenceText};
 }
 
+- (NSString *)type
+{
+    return @"readaloud";
+}
+
 @end
