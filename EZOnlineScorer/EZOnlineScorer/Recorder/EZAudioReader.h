@@ -23,6 +23,7 @@ typedef enum
   EZAudioReaderErrorFailedToConvertAudio = 7
 } EZAudioReaderError;
 
+extern NSString * _Nullable const kEZAudioReaderErrorDomain;
 
 @protocol EZAudioReaderDelegate <NSObject>
 @optional

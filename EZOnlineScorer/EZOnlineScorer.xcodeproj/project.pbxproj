@@ -49,6 +49,17 @@
 		B2D8C43C1F2861F70042E403 /* EZLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8C4391F2861F70042E403 /* EZLogger.m */; };
 		B2D8C4411F299F0A0042E403 /* NSString+FilePath.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8C4401F299F0A0042E403 /* NSString+FilePath.m */; };
 		B2D8C4421F299F130042E403 /* NSString+FilePath.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8C4401F299F0A0042E403 /* NSString+FilePath.m */; };
+		B2D8C4461F29DBD80042E403 /* EZStat.h in Headers */ = {isa = PBXBuildFile; fileRef = B2D8C4441F29DBD80042E403 /* EZStat.h */; };
+		B2D8C4471F29DBD80042E403 /* EZStat.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8C4451F29DBD80042E403 /* EZStat.m */; };
+		B2D8C4481F29DBD80042E403 /* EZStat.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8C4451F29DBD80042E403 /* EZStat.m */; };
+		B2D8C44B1F2AE2A40042E403 /* EZRecordPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = B2D8C4491F2AE2A40042E403 /* EZRecordPoint.h */; };
+		B2D8C44C1F2AE2A40042E403 /* EZRecordPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8C44A1F2AE2A40042E403 /* EZRecordPoint.m */; };
+		B2D8C44D1F2AE2A40042E403 /* EZRecordPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8C44A1F2AE2A40042E403 /* EZRecordPoint.m */; };
+		B2D8C44F1F2EE3F70042E403 /* EZOnlineScorerRecorder+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = B2D8C44E1F2EE3F70042E403 /* EZOnlineScorerRecorder+Internal.h */; };
+		B2D8C4511F2EFE4F0042E403 /* Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = B2D8C4501F2EFE4D0042E403 /* Constants.h */; };
+		B2D8C4541F30835D0042E403 /* NSString+Crypto.h in Headers */ = {isa = PBXBuildFile; fileRef = B2D8C4521F30835D0042E403 /* NSString+Crypto.h */; };
+		B2D8C4551F30835D0042E403 /* NSString+Crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8C4531F30835D0042E403 /* NSString+Crypto.m */; };
+		B2D8C4561F30835D0042E403 /* NSString+Crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8C4531F30835D0042E403 /* NSString+Crypto.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -105,6 +116,14 @@
 		B2D8C4391F2861F70042E403 /* EZLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EZLogger.m; path = Log/EZLogger.m; sourceTree = "<group>"; };
 		B2D8C43F1F299F0A0042E403 /* NSString+FilePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+FilePath.h"; path = "Utility/NSString+FilePath.h"; sourceTree = "<group>"; };
 		B2D8C4401F299F0A0042E403 /* NSString+FilePath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+FilePath.m"; path = "Utility/NSString+FilePath.m"; sourceTree = "<group>"; };
+		B2D8C4441F29DBD80042E403 /* EZStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EZStat.h; path = EZStat/EZStat.h; sourceTree = "<group>"; };
+		B2D8C4451F29DBD80042E403 /* EZStat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EZStat.m; path = EZStat/EZStat.m; sourceTree = "<group>"; };
+		B2D8C4491F2AE2A40042E403 /* EZRecordPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EZRecordPoint.h; path = EZStat/EZRecordPoint.h; sourceTree = "<group>"; };
+		B2D8C44A1F2AE2A40042E403 /* EZRecordPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EZRecordPoint.m; path = EZStat/EZRecordPoint.m; sourceTree = "<group>"; };
+		B2D8C44E1F2EE3F70042E403 /* EZOnlineScorerRecorder+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EZOnlineScorerRecorder+Internal.h"; sourceTree = "<group>"; };
+		B2D8C4501F2EFE4D0042E403 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		B2D8C4521F30835D0042E403 /* NSString+Crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Crypto.h"; path = "Utility/NSString+Crypto.h"; sourceTree = "<group>"; };
+		B2D8C4531F30835D0042E403 /* NSString+Crypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Crypto.m"; path = "Utility/NSString+Crypto.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +168,7 @@
 		B21C1AD01E9F73D3005CB84D /* EZOnlineScorer */ = {
 			isa = PBXGroup;
 			children = (
+				B2D8C4431F29DB9D0042E403 /* Stat */,
 				B2D8C43E1F299EFB0042E403 /* Utility */,
 				B2D8C4371F284D4A0042E403 /* Logger */,
 				B21C1AD91EA07E26005CB84D /* OnlineScorerRecorder */,
@@ -168,6 +188,7 @@
 			children = (
 				B21C1ADA1EA07E26005CB84D /* EZOnlineScorerRecorder.h */,
 				B21C1ADB1EA07E26005CB84D /* EZOnlineScorerRecorder.m */,
+				B2D8C44E1F2EE3F70042E403 /* EZOnlineScorerRecorder+Internal.h */,
 			);
 			path = OnlineScorerRecorder;
 			sourceTree = "<group>";
@@ -254,8 +275,22 @@
 			children = (
 				B2D8C43F1F299F0A0042E403 /* NSString+FilePath.h */,
 				B2D8C4401F299F0A0042E403 /* NSString+FilePath.m */,
+				B2D8C4501F2EFE4D0042E403 /* Constants.h */,
+				B2D8C4521F30835D0042E403 /* NSString+Crypto.h */,
+				B2D8C4531F30835D0042E403 /* NSString+Crypto.m */,
 			);
 			name = Utility;
+			sourceTree = "<group>";
+		};
+		B2D8C4431F29DB9D0042E403 /* Stat */ = {
+			isa = PBXGroup;
+			children = (
+				B2D8C4441F29DBD80042E403 /* EZStat.h */,
+				B2D8C4451F29DBD80042E403 /* EZStat.m */,
+				B2D8C4491F2AE2A40042E403 /* EZRecordPoint.h */,
+				B2D8C44A1F2AE2A40042E403 /* EZRecordPoint.m */,
+			);
+			name = Stat;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,16 +302,21 @@
 			files = (
 				B21C1AFC1EA07E26005CB84D /* EZSRWebSocket.h in Headers */,
 				B2334E7B1EE7A8BD0035261E /* EZASRPayload.h in Headers */,
+				B2D8C4541F30835D0042E403 /* NSString+Crypto.h in Headers */,
 				B21C1AF81EA07E26005CB84D /* EZReadAloudPayload.h in Headers */,
 				B291ED451F25D61F00F421AD /* EZSpeexManager.h in Headers */,
 				B21C1AF71EA07E26005CB84D /* EZOnlineScorerRecorderPayload.h in Headers */,
 				B21C1AF11EA07E26005CB84D /* EZOnlineScorerRecorder.h in Headers */,
+				B2D8C4461F29DBD80042E403 /* EZStat.h in Headers */,
+				B2D8C44B1F2AE2A40042E403 /* EZRecordPoint.h in Headers */,
 				B2D8C43A1F2861F70042E403 /* EZLogger.h in Headers */,
 				B21C1AD31E9F73D3005CB84D /* EZOnlineScorer.h in Headers */,
 				B21C1AFA1EA07E26005CB84D /* EZSemiOpenPayload.h in Headers */,
 				B21C1AF31EA07E26005CB84D /* EZAudioReader.h in Headers */,
 				B21C1AF51EA07E26005CB84D /* EZAudioSocket.h in Headers */,
 				B291ED421F25D61F00F421AD /* voice.h in Headers */,
+				B2D8C4511F2EFE4F0042E403 /* Constants.h in Headers */,
+				B2D8C44F1F2EE3F70042E403 /* EZOnlineScorerRecorder+Internal.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +412,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2D8C4551F30835D0042E403 /* NSString+Crypto.m in Sources */,
 				B21C1AF41EA07E26005CB84D /* EZAudioReader.m in Sources */,
 				B21C1AF91EA07E26005CB84D /* EZReadAloudPayload.m in Sources */,
 				B2D8C4421F299F130042E403 /* NSString+FilePath.m in Sources */,
@@ -382,6 +423,8 @@
 				B291ED441F25D61F00F421AD /* EZSpeexManager.m in Sources */,
 				B2D8C43B1F2861F70042E403 /* EZLogger.m in Sources */,
 				B291ED431F25D61F00F421AD /* voice.c in Sources */,
+				B2D8C44C1F2AE2A40042E403 /* EZRecordPoint.m in Sources */,
+				B2D8C4471F29DBD80042E403 /* EZStat.m in Sources */,
 				B21C1AF21EA07E26005CB84D /* EZOnlineScorerRecorder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -390,6 +433,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2D8C4561F30835D0042E403 /* NSString+Crypto.m in Sources */,
 				B2D8C4221F26EDCB0042E403 /* EZASRPayload.m in Sources */,
 				B2D8C41F1F26EDC10042E403 /* EZSRWebSocket.m in Sources */,
 				B2D8C4411F299F0A0042E403 /* NSString+FilePath.m in Sources */,
@@ -400,6 +444,8 @@
 				B2D8C4231F26EDD00042E403 /* EZAudioSocket.m in Sources */,
 				B2D8C43C1F2861F70042E403 /* EZLogger.m in Sources */,
 				B2D8C4241F26EDD80042E403 /* EZAudioReader.m in Sources */,
+				B2D8C44D1F2AE2A40042E403 /* EZRecordPoint.m in Sources */,
+				B2D8C4481F29DBD80042E403 /* EZStat.m in Sources */,
 				B2D8C4211F26EDC70042E403 /* EZReadAloudPayload.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -410,7 +456,6 @@
 		B21C1AD41E9F73D3005CB84D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -462,7 +507,6 @@
 		B21C1AD51E9F73D3005CB84D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";

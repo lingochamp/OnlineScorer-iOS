@@ -12,6 +12,7 @@
 @protocol EZOnlineScorerRecorderPayload <NSObject>
 
 - (NSDictionary * _Nonnull)jsonPayload;
+- (NSString * _Nonnull)type;
 
 @end
 

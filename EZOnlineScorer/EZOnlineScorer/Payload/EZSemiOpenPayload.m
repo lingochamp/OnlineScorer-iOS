@@ -40,5 +40,9 @@
              @"targetAudience": [NSString stringWithFormat:@"%zd", self.targetAudience]};
 }
 
+- (NSString *)type
+{
+    return @"semiopen";
+}
 
 @end

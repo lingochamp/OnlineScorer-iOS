@@ -30,6 +30,7 @@ typedef NS_ENUM(NSUInteger, EZOnlineScorerRecorderError) {
     EZOnlineScorerRecorderErrorInvalidParameter,
 };
 
+extern NSString * _Nullable const kEZOnlineScorerRecorderErrorDomain;
 
 @class EZOnlineScorerRecorder;
 

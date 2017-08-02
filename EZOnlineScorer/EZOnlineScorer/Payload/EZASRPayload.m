@@ -19,4 +19,9 @@
   return [payload copy];
 }
 
+- (NSString *)type
+{
+    return @"asr";
+}
+
 @end

@@ -10,7 +10,10 @@
 #import "EZAudioSocket.h"
 #import "EZAudioReader.h"
 #import "EZLogger.h"
-#import <CommonCrypto/CommonDigest.h>
+#import "NSString+Crypto.h"
+#import "EZOnlineScorerRecorder+Internal.h"
+#import "EZRecordPoint.h"
+#import "NSString+FilePath.h"
 
 NSString *const kEZOnlineScorerRecorderErrorDomain = @"EZOnlineScorerRecorderError";
 NSString *const kEZOnlineScorerRecorderErrorRecorderErrorDescription = @"Online scorer failed to record.";
@@ -47,18 +50,6 @@ static NSError *errorForOnlineScorerErrorCode(EZOnlineScorerRecorderError errorC
     return error;
 }
 
-static NSString *md5HexDigest(NSString *input) {
-    const char* str = [input UTF8String];
-    unsigned char result[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(str, (CC_LONG)strlen(str), result);
-    
-    NSMutableString *ret = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH*2];
-    for(int i = 0; i<CC_MD5_DIGEST_LENGTH; i++) {
-        [ret appendFormat:@"%02x",result[i]];
-    }
-    return ret;
-}
-
 @interface EZOnlineScorerRecorder () <EZAudioSocketDelegate, EZAudioReaderDelegate>
 
 @property (nullable, nonatomic, strong) EZAudioSocket *audioSocket;
@@ -66,8 +57,9 @@ static NSString *md5HexDigest(NSString *input) {
 @property (readwrite, getter=isProcessing) BOOL processing;
 @property (nonnull, readwrite, nonatomic) NSURL *recordURL;
 @property (nonnull, readwrite, nonatomic) id<EZOnlineScorerRecorderPayload> payload;
-@property (nonnull, nonatomic) dispatch_queue_t onlineScorerRecorderOperationQueue;
 @property (nonnull, nonatomic, strong) NSMutableData *cachedAudioData;
+@property (nullable, nonatomic, strong) EZRecordPoint *statPoint;
+@property (nullable, nonatomic, copy) NSString *audioID;
 
 //flags
 @property (nonatomic, assign) BOOL disposal;
@@ -108,6 +100,11 @@ static NSURL *_socketURL;
     [EZLogger generateCombinedLog:completion];
 }
 
++ (NSString * _Nullable)appID
+{
+    return _appID;
+}
+
 #pragma mark - initializer
 
 - (instancetype _Nullable)init
@@ -134,8 +131,6 @@ static NSURL *_socketURL;
     if (self) {
         _payload = payload;
         _useSpeex = useSpeex;
-        _onlineScorerRecorderOperationQueue = dispatch_queue_create("com.liulishuo.onlineScorerRecorderOperationQueue",
-                                                                    DISPATCH_QUEUE_SERIAL);
         _cachedAudioData = [NSMutableData new];
     }
     return self;
@@ -170,19 +165,8 @@ static NSURL *_socketURL;
 
 - (void)record
 {
-    NSString *tempPath = NSTemporaryDirectory();
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL isDir = NO;
-    NSError *error = nil;
-    if (![fileManager fileExistsAtPath:tempPath isDirectory:&isDir]) {
-        EZLog(@"Directory does not exist at dirPath %@", tempPath);
-        
-        if (![fileManager createDirectoryAtPath:tempPath withIntermediateDirectories:YES attributes:nil error:&error]) {
-            EZLog(@"=== error: %@", error.debugDescription);
-        }
-    }
-    NSURL *tempDir = [NSURL fileURLWithPath:tempPath isDirectory:YES];
-    NSURL *temporaryAudioURL = [tempDir URLByAppendingPathComponent:@"tempScorerRecord.aac" isDirectory:NO];
+    NSString *tempPath = [NSTemporaryDirectory() directoryPathWithExistenceCheck];
+    NSURL *temporaryAudioURL = [NSURL fileURLWithPath:[tempPath stringByAppendingPathComponent:@"tempScorerRecord.aac"] isDirectory:NO];
     [self recordToURL:temporaryAudioURL];
 }
 
@@ -191,13 +175,8 @@ static NSURL *_socketURL;
     if (self.recordCalled) return;
     self.recordCalled = true;
     
-    NSData *metaData = [self metaData];
-    if (!metaData) return;
-    
     self.recordURL = fileURL;
-    self.audioSocket = [[EZAudioSocket alloc] initWithSocketURL:self.socketURL metaData:metaData useSpeex:self.useSpeex];
-    self.processing = YES;
-    self.audioSocket.delegate = self;
+    [self openAudioSocket:NO];
     self.audioReader = [[EZAudioReader alloc] init];
     self.audioReader.delegate = self;
     [self.audioReader recordToFileURL:fileURL];
@@ -229,25 +208,36 @@ static NSURL *_socketURL;
     
     self.audioSocket.delegate = nil;
     [self.audioSocket closeImmediately];
+    [self.statPoint setResponseTime:[NSDate distantFuture]];
+    [EZStat saveStatPoint:self.statPoint];
     
-    self.audioSocket = [[EZAudioSocket alloc] initWithSocketURL:self.socketURL metaData:[self metaData] useSpeex:self.useSpeex];
+    [self openAudioSocket:YES];
+    
+    NSError *error;
+    if (![self.audioSocket write:self.cachedAudioData error:&error]) {
+        [self finishScoringWithErrorCode:EZOnlineScorerRecorderErrorConnectionError underlyingError:error];
+        return;
+    }
+    
+    if (self.recordStopped) {
+        [self.audioSocket close];
+    }
+    
+}
+
+- (void)openAudioSocket:(BOOL)isRepest
+{
+    self.audioID = [[NSUUID new] UUIDString];
+    
+    NSData *metaData = [self metaData];
+    if (!metaData) return;
+    
+    self.statPoint = [[EZRecordPoint alloc] initWithAudioId:self.audioID item:self.payload.type isRepest:isRepest];
+    [self.statPoint setStartRecordTime:[NSDate date]];
+    self.audioSocket = [[EZAudioSocket alloc] initWithSocketURL:self.socketURL metaData:metaData useSpeex:self.useSpeex];
     self.processing = YES;
     self.audioSocket.delegate = self;
-    
-    __weak typeof(self) weakSelf = self;
-    dispatch_async(self.onlineScorerRecorderOperationQueue, ^{
-        typeof(self) strongSelf = weakSelf;
-        
-        NSError *error;
-        if (![strongSelf.audioSocket write:strongSelf.cachedAudioData error:&error]) {
-            [strongSelf finishScoringWithErrorCode:EZOnlineScorerRecorderErrorConnectionError underlyingError:error];
-            return;
-        }
-        
-        if (strongSelf.recordStopped) {
-            [strongSelf.audioSocket close];
-        }
-    });
+    [self.audioSocket open];
 }
 
 - (NSData * _Nullable)metaData
@@ -261,7 +251,9 @@ static NSURL *_socketURL;
     
     NSDictionary *metaJSON = @{@"item": payload,
                                @"appID": _appID,
-                               @"salt": salt};
+                               @"salt": salt,
+                               @"audioID": self.audioID,
+                               @"deviceID": [[[UIDevice currentDevice] identifierForVendor] UUIDString]};
     
     NSError *error = nil;
     NSData *metaJSONData = [NSJSONSerialization dataWithJSONObject:metaJSON options:0 error:&error];
@@ -271,7 +263,7 @@ static NSURL *_socketURL;
     }
     
     NSString *metaJSONString = [[NSString alloc] initWithData:metaJSONData encoding:NSUTF8StringEncoding];
-    NSString *hash = md5HexDigest([[NSString alloc] initWithFormat:@"%@+%@+%@+%@", _appID, metaJSONString, salt, _secret]);
+    NSString *hash = [[[NSString alloc] initWithFormat:@"%@+%@+%@+%@", _appID, metaJSONString, salt, _secret] md5HexDigest];
     NSString *metaString = [[NSString alloc] initWithFormat:@"%@;hash=%@", metaJSONString, hash];
     
     return [metaString dataUsingEncoding:NSUTF8StringEncoding];
@@ -320,6 +312,9 @@ static NSURL *_socketURL;
         [self.delegate onlineScorer:self didGenerateReport:data];
     }
     
+    [self.statPoint setResponseTime:[NSDate date]];
+    [EZStat saveStatPoint:self.statPoint];
+    self.statPoint = nil;
 }
 
 - (void)audioSocket:(EZAudioSocket * _Nonnull)audioSocket didFailWithError:(NSError * _Nullable)error
@@ -334,6 +329,10 @@ static NSURL *_socketURL;
     if ([self.delegate respondsToSelector:@selector(onlineScorer:didFailWithError:)]) {
         [self.delegate onlineScorer:self didFailWithError:errorForOnlineScorerErrorCode(EZOnlineScorerRecorderErrorConnectionError, error)];
     }
+    
+    [self.statPoint setError:error];
+    [EZStat saveStatPoint:self.statPoint];
+    self.statPoint = nil;
 }
 
 #pragma mark - EZAudioReaderDelegate
@@ -346,6 +345,10 @@ static NSURL *_socketURL;
     if (self.disposal) return;
 
     [self finishRecordingWithErrorCode:EZOnlineScorerRecorderErrorRecorderError underlyingError:error];
+    
+    [self.statPoint setError:error];
+    [EZStat saveStatPoint:self.statPoint];
+    self.statPoint = nil;
 }
 
 - (void)audioReaderDidBeginReading:(EZAudioReader * _Nonnull)reader
@@ -354,6 +357,8 @@ static NSURL *_socketURL;
     
     if (self.disposal) return;
 
+    [self.audioSocket open];
+    
     if ([self.delegate respondsToSelector:@selector(onlineScorerDidBeginRecording:)]) {
         [self.delegate onlineScorerDidBeginRecording:self];
     }
@@ -372,16 +377,11 @@ static NSURL *_socketURL;
 {
     if (self.disposal) return;
 
-    __weak typeof(self) weakSelf = self;
-    dispatch_async(self.onlineScorerRecorderOperationQueue, ^{
-        typeof(self) strongSelf = weakSelf;
-        
-        [strongSelf.cachedAudioData appendData:audioData];
-        NSError *error;
-        if (![strongSelf.audioSocket write:audioData error:&error]) {
-            [strongSelf finishScoringWithErrorCode:EZOnlineScorerRecorderErrorConnectionError underlyingError:error];
-        }
-    });
+    [self.cachedAudioData appendData:audioData];
+    NSError *error;
+    if (![self.audioSocket write:audioData error:&error]) {
+        [self finishScoringWithErrorCode:EZOnlineScorerRecorderErrorConnectionError underlyingError:error];
+    }
 }
 
 - (void)engzoAudioRecorderDidStop:(EZAudioReader * _Nonnull)reader
@@ -391,6 +391,7 @@ static NSURL *_socketURL;
     self.recordStopped = YES;
     if (self.disposal) return;
 
+    [self.statPoint setEndRecordTime:[NSDate date]];
     [self.audioSocket close];
     if ([self.delegate respondsToSelector:@selector(onlineScorerDidFinishRecording:)]) {
         [self.delegate onlineScorerDidFinishRecording:self];
