@@ -26,7 +26,7 @@ and simplifies the process of using 3rd-party libraries in your projects. See th
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'EZOnlineScorer-Framework'
+pod 'EZOnlineScorer'
 ```
 
 ### Manually Installation
@@ -106,7 +106,7 @@ OnlineScorer 动态链接库和静态库两种版本，支持CocoaPods和手动�
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'EZOnlineScorer-Framework'
+pod 'EZOnlineScorer'
 ```
 
 ### 手动集成
