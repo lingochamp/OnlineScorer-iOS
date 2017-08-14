@@ -103,16 +103,18 @@ static EZLogDestination _logDestination = EZLogDestinationNone;
 
 void EZLog(NSString * _Nonnull format, ...) {
     va_list args;
-    va_start(args, format);
     if (_logDestination & EZLogDestinationFile) {
+        va_start(args, format);
         NSString *logString = [[NSString alloc] initWithFormat:format arguments:args];
+        va_end(args);
         logString = [NSString stringWithFormat:@"%@ %@", [NSDate date], logString];
         dispatch_async([EZLogger logQueue], ^{
             [[EZLogger logFileHandle] writeData:[logString dataUsingEncoding:NSUTF8StringEncoding]];
         });
     }
     if (_logDestination & EZLogDestinationConsole) {
+        va_start(args, format);
         NSLogv(format, args);
+        va_end(args);
     }
-    va_end(args);
 }
