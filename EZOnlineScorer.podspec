@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "EZOnlineScorer"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "OnlineScorer for iOS."
   s.description  = <<-DESC
     An online spoken English scorer. Contact liulishuo for business license.

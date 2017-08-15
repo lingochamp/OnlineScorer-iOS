@@ -45,7 +45,7 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
     return error;
 }
 
-@interface EZAudioSocket () <EZSRWebSocketDelegate, EZSpeexManagerDelegate>
+@interface EZAudioSocket () <EZSRWebSocketDelegate>
 
 @property (nonnull, nonatomic, strong) NSURL *socketURL;
 @property (nonnull, nonatomic, strong) EZSRWebSocket *webSocket;
@@ -135,11 +135,8 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
 {
     if (self.webSocket.readyState != SR_OPEN) return;
     
-    if (self.useSpeex) {
-        [self.speexManager appendPcmData:self.audioBuffer isEnd:NO];
-    } else if (self.audioBuffer.length != 0) {
-        [self.webSocket send:self.audioBuffer];
-    }
+    NSData *pendingData = self.useSpeex ? [self.speexManager appendPcmData:self.audioBuffer isEnd:self.allDataReceived] : self.audioBuffer;
+    [self.webSocket send:pendingData];
     
     self.audioBuffer.length = 0;//clear up data
 }
@@ -176,7 +173,7 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
         typeof(self) strongSelf = weakSelf;
         if (!strongSelf) return;
         
-        if (strongSelf.webSocket.readyState == SR_OPEN && strongSelf.messageSent) {
+        if (strongSelf.webSocket.readyState == SR_OPEN && !strongSelf.messageSent) {
             [strongSelf forceSendMessage:@"socket waiting to close timeout"];
         }
     });
@@ -268,7 +265,6 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
 {
     if (!_speexManager) {
         _speexManager = [EZSpeexManager new];
-        _speexManager.delegate = self;
     }
     return _speexManager;
 }
@@ -305,14 +301,6 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
 {
     self.readyToClose = YES;
     EZLog(@"webSocket closed with code: %zd reason: %@ wasClean: %i", code, reason, wasClean);
-}
-
-#pragma mark - EZSpeexManagerDelegate
-
-- (void)speexManager:(EZSpeexManager *)speexManager didGenerateSpeexData:(NSData *)data
-{
-    if (self.webSocket.readyState != SR_OPEN) return;
-    [self.webSocket send:data];
 }
 
 @end

@@ -12,7 +12,6 @@
 @interface EZSpeexManager()
 
 @property (nonatomic, strong) NSMutableData *bufferData;
-@property (nonnull, nonatomic, strong) dispatch_queue_t operationQueue;
 
 @end
 
@@ -34,7 +33,6 @@ const int frameSize = 320;
 {
     if (self = [super init]) {
         speex = voice_encode_init(quality);
-        _operationQueue = dispatch_queue_create("com.liulishuo.speex", DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }
@@ -52,38 +50,34 @@ const int frameSize = 320;
     return _bufferData;
 }
 
-- (void)appendPcmData:(NSData *)data isEnd:(BOOL)isEnd
+- (NSData * _Nonnull)appendPcmData:(NSData *)data isEnd:(BOOL)isEnd
 {
-    dispatch_async(self.operationQueue, ^{
-        [self.bufferData appendData:data];
-        
-        NSMutableData *encodedData = [NSMutableData data];
-        
-        while (true) {
-            NSInteger length = self.bufferData.length;
-            if (length == 0){
-                break;
-            }
-            if (length < frameSize * 2) {       //每次压缩640byte
-                if (isEnd) {
-                    NSData *data = self.bufferData;
-                    self.bufferData = nil;
-                    data = [self encode:(Byte *)[data bytes] length:(int)data.length];
-                    [encodedData appendData:data];
-                }
-                break;
-            } else {
-                NSData *data = [self.bufferData subdataWithRange:NSMakeRange(0,  frameSize * 2)];
-                self.bufferData = [[self.bufferData subdataWithRange:NSMakeRange(frameSize * 2, self.bufferData.length - frameSize * 2)] mutableCopy];
-                data = [self encode:(Byte *)[data bytes] length:(int)data.length];
-                [encodedData appendData:data];
-            }
+    [self.bufferData appendData:data];
+    
+    NSMutableData *encodedData = [NSMutableData data];
+    
+    while (true) {
+      NSInteger length = self.bufferData.length;
+      if (length == 0){
+        break;
+      }
+      if (length < frameSize * 2) {       //每次压缩640byte
+        if (isEnd) {
+          NSData *data = self.bufferData;
+          self.bufferData = nil;
+          data = [self encode:(Byte *)[data bytes] length:(int)data.length];
+          [encodedData appendData:data];
         }
-        
-        if (encodedData.length > 0 && [self.delegate respondsToSelector:@selector(speexManager:didGenerateSpeexData:)]) {
-            [self.delegate speexManager:self didGenerateSpeexData:encodedData];
-        }
-    });
+        break;
+      } else {
+        NSData *data = [self.bufferData subdataWithRange:NSMakeRange(0,  frameSize * 2)];
+        self.bufferData = [[self.bufferData subdataWithRange:NSMakeRange(frameSize * 2, self.bufferData.length - frameSize * 2)] mutableCopy];
+        data = [self encode:(Byte *)[data bytes] length:(int)data.length];
+        [encodedData appendData:data];
+      }
+    }
+  
+    return [encodedData copy];
 }
 
 - (NSData *)encode:(Byte *)pcmBuffer length:(int)lengthOfByte

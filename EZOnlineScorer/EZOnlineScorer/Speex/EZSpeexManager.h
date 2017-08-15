@@ -8,19 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@class EZSpeexManager;
-
-@protocol EZSpeexManagerDelegate <NSObject>
-
-- (void)speexManager:(EZSpeexManager * _Nonnull)speexManager didGenerateSpeexData:(NSData * _Nonnull)data;
-
-@end
-
 @interface EZSpeexManager : NSObject
 
-@property (nullable, nonatomic, weak) id<EZSpeexManagerDelegate> delegate;
-
 - (instancetype _Nonnull)initWithQuality:(int)quality;
-- (void)appendPcmData:(NSData * _Nonnull)data isEnd:(BOOL)isEnd;
+- (NSData * _Nonnull)appendPcmData:(NSData * _Nonnull)data isEnd:(BOOL)isEnd;
 
 @end

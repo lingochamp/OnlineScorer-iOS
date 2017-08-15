@@ -9,6 +9,6 @@
 #ifndef Constants_h
 #define Constants_h
 
-#define SDK_VERSION @"0.0.2"
+#define SDK_VERSION @"0.0.3"
 
 #endif /* Constants_h */
