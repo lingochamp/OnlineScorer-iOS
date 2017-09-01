@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 @class EZAudioReader;
 
@@ -43,6 +44,9 @@ extern NSString * _Nullable const kEZAudioReaderErrorDomain;
 
 ///EZAudioReader are intended for one-time-use only. -recordToFileURL: should be called once and only once.
 - (void)recordToFileURL:(NSURL * _Nonnull)fileURL;
+
+- (void)recordToFileURL:(NSURL * _Nonnull)fileURL fileType:(AudioFileTypeID)fileType;
+
 - (void)stop;
 
 @end

@@ -157,7 +157,7 @@ class ViewController: UIViewController {
                     do {
                         try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
                         try AVAudioSession.sharedInstance().setActive(true)
-                        scorer?.record(to: self.recordURL)
+                        scorer?.record(to: self.recordURL, fileType: kAudioFileWAVEType)
                     } catch {
                         let alert = UIAlertController(title: "未能开启录音", message: error.localizedDescription, preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "好的", style: .default, handler: nil))

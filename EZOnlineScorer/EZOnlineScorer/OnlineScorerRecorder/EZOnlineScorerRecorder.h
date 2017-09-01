@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "EZOnlineScorerRecorderPayload.h"
-
-
+#import <AudioToolbox/AudioToolbox.h>
 
 /**
  EZOnlineScorerRecorder error type
@@ -222,6 +221,26 @@ extern NSString * _Nullable const kEZOnlineScorerRecorderErrorDomain;
  @param fileURL Destination record URL. Record file format is m4a. 录音文件保存位置。录音格式是 m4a.
  */
 - (void)recordToURL:(NSURL * _Nonnull)fileURL;
+
+/**
+ Record to given location. Must set AVAudioSession to currect category (Record or PlayAndRecord)
+ and activate AVAudioSession before call this function.
+ 
+ Note: You need to request permission before setup AVAudioSession.
+ 
+ Note: EZDeliteScorerRecorder are intended for one-time-use only. -recordToURL: should be called once and only once.
+ 
+ 录音到指定文件并打分。录音前必须正确设置 AVAudioSession 的 category (Record 或 PlayAndRecord)，并在录音前激活
+ AVAudioSession。
+ 
+ 注意：设置 AVAudioSession 前你需要自行申请录音权限。
+ 
+ 注意：EZDeliteScorerRecorder 是为一次性使用设计的。-recordToURL:fileType: 方法只应被调用一次（之后的调用会静默失败）。
+ 
+ @param fileURL Destination record URL. Record file format is m4a. 录音文件保存位置。
+ @param fileType record fileType 录音文件格式。
+ */
+- (void)recordToURL:(NSURL * _Nonnull)fileURL fileType:(AudioFileTypeID)fileType;
 
 /**
  Record file to a temporary location. Old temporary record file will be overwrited.

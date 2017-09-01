@@ -255,7 +255,7 @@ static void WriteCookie(AudioConverterRef converter, AudioFileID destinationFile
 static OSStatus EncoderDataProc(AudioConverterRef inAudioConverter, UInt32 *ioNumberDataPackets, AudioBufferList *ioData, AudioStreamPacketDescription **outDataPacketDescription, void *inUserData)
 {
     EZAudioReaderState *pAqData = (EZAudioReaderState *)inUserData;
-//    EZLog(@"ask ioNumberDataPackets %u", (unsigned int)*ioNumberDataPackets);
+    //    EZLog(@"ask ioNumberDataPackets %u", (unsigned int)*ioNumberDataPackets);
     // put the data pointer into the buffer list
     if (*ioNumberDataPackets > kMaxNumInputPackets)
     {
@@ -277,12 +277,12 @@ static OSStatus EncoderDataProc(AudioConverterRef inAudioConverter, UInt32 *ioNu
     
     ioData->mBuffers[0].mNumberChannels = 1;
     pAqData->mCurrenBufferIsUsed = true;
-//    EZLog(@"got ioNumberDataPackets %u", (unsigned int)*ioNumberDataPackets);
+    //    EZLog(@"got ioNumberDataPackets %u", (unsigned int)*ioNumberDataPackets);
     if (outDataPacketDescription)
     {
         if (/* DISABLES CODE */ (0))   //pAqData->mOutputPacketDescriptions) {
         {
-//            *outDataPacketDescription = pAqData->mOutputPacketDescriptions;
+            //            *outDataPacketDescription = pAqData->mOutputPacketDescriptions;
         }
         else
         {
@@ -395,8 +395,7 @@ static void HandleInputBuffer(void *aqData, AudioQueueRef inAQ, AudioQueueBuffer
     }
 }
 
-- (void)setInputOutputFormat
-{
+- (void)setInputOutputFormatWithFileType:(AudioFileTypeID)fileType {
     memset(&_state.mInputFormat, 0, sizeof(_state.mInputFormat));
     _state.mInputFormat.mSampleRate = 16000.0;
     _state.mInputFormat.mFormatID = kAudioFormatLinearPCM;
@@ -409,15 +408,25 @@ static void HandleInputBuffer(void *aqData, AudioQueueRef inAQ, AudioQueueBuffer
     _state.mInputFormat.mBitsPerChannel = 16;
     
     memset(&_state.mOutputFormat, 0, sizeof(_state.mOutputFormat));
-    _state.mOutputFormat.mFormatID = kAudioFormatAppleLossless;
-    _state.mOutputFormat.mSampleRate = 16000.0;
-    _state.mOutputFormat.mChannelsPerFrame = 1;
-    _state.mOutputFormat.mBitsPerChannel = 0; //for compressed formats the mBitsPerChannel field is always 0
-    _state.mOutputFormat.mBytesPerPacket = 0;
-    _state.mOutputFormat.mFramesPerPacket = 4096;
-    _state.mOutputFormat.mFormatFlags = kAppleLosslessFormatFlag_16BitSourceData;
-    
-    
+    if (fileType == kAudioFileM4AType) {
+        _state.mOutputFormat.mFormatID = kAudioFormatAppleLossless;
+        _state.mOutputFormat.mSampleRate = 16000.0;
+        _state.mOutputFormat.mChannelsPerFrame = 1;
+        _state.mOutputFormat.mBitsPerChannel = 0; //for compressed formats the mBitsPerChannel field is always 0
+        _state.mOutputFormat.mBytesPerPacket = 0;
+        _state.mOutputFormat.mFramesPerPacket = 4096;
+        _state.mOutputFormat.mFormatFlags = kAppleLosslessFormatFlag_16BitSourceData;
+    } else {
+        _state.mOutputFormat.mSampleRate = 16000.0;
+        _state.mOutputFormat.mFormatID = kAudioFormatLinearPCM;
+        _state.mOutputFormat.mFormatFlags =
+        kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
+        _state.mOutputFormat.mBytesPerPacket = 2;
+        _state.mOutputFormat.mFramesPerPacket = 1;
+        _state.mOutputFormat.mBytesPerFrame = 2;
+        _state.mOutputFormat.mChannelsPerFrame = 1;
+        _state.mOutputFormat.mBitsPerChannel = 16;
+    }
     AudioConverterNew(&_state.mInputFormat,
                       &_state.mOutputFormat,
                       &_state.mConverter);
@@ -425,9 +434,9 @@ static void HandleInputBuffer(void *aqData, AudioQueueRef inAQ, AudioQueueBuffer
     _state.mOutputPacketDescriptions = NULL;
 }
 
-- (void)setupCoreAudioUtil
+- (void)setupCoreAudioUtilWithFileType:(AudioFileTypeID)fileType
 {
-    [self setInputOutputFormat];
+    [self setInputOutputFormatWithFileType:fileType];
     
     _state.mAudioFileIsSet = false;
     
@@ -533,16 +542,14 @@ static void HandleInputBuffer(void *aqData, AudioQueueRef inAQ, AudioQueueBuffer
     _state.mAudioFileIsSet = true;
 }
 
-
-- (void)recordToFileURL:(NSURL * _Nonnull)fileURL
-{
+- (void)recordToFileURL:(NSURL * _Nonnull)fileURL fileType:(AudioFileTypeID)fileType {
     if (self.isRecording || _isReady)
     {
         return;
     }
     
     _isReady = YES;
-    [self setupCoreAudioUtil];
+    [self setupCoreAudioUtilWithFileType:fileType];
     
     self.currentPlayDuration = 0;
     
@@ -567,14 +574,18 @@ static void HandleInputBuffer(void *aqData, AudioQueueRef inAQ, AudioQueueBuffer
         
         [self startProgress];
     }
-  
+    
     for (int i = 0; i < kEnergySmoothingWindowSize; ++i)
     {
         [_window replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:0]];
     }
     
     _isReady = NO;
-    
+}
+
+- (void)recordToFileURL:(NSURL * _Nonnull)fileURL
+{
+    [self recordToFileURL:fileURL fileType:kAudioFileM4AType];
 }
 
 - (float)getPower
