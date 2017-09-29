@@ -221,6 +221,7 @@ static NSError *errorForAudioSocketErrorCode(EZAudioSocketError errorCode, NSErr
     
     if (statusCode != 0)
     {
+        EZLog(@"Audio socket encountered non-zero status code: %@", meta);
         NSString *message = meta[@"msg"];
         *error = [NSError errorWithDomain:kEZAudioSocketErrorDomain
                                              code:statusCode

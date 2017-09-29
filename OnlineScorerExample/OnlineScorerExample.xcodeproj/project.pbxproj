@@ -14,6 +14,7 @@
 		B21C1B1D1EA08015005CB84D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B21C1B1C1EA08015005CB84D /* Assets.xcassets */; };
 		B21C1B201EA08015005CB84D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B21C1B1E1EA08015005CB84D /* LaunchScreen.storyboard */; };
 		B21C1B291EA080E3005CB84D /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B21C1B281EA080E3005CB84D /* libicucore.tbd */; };
+		B29F9E891F7DF327006EDEB0 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29F9E881F7DF327006EDEB0 /* Constant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,6 +42,7 @@
 		B21C1B1F1EA08015005CB84D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B21C1B211EA08015005CB84D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B21C1B281EA080E3005CB84D /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		B29F9E881F7DF327006EDEB0 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		B2D8C4361F2835540042E403 /* OnlineScorerExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OnlineScorerExample-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +91,7 @@
 			children = (
 				B21C1B151EA08015005CB84D /* AppDelegate.swift */,
 				B21C1B171EA08015005CB84D /* ViewController.swift */,
+				B29F9E881F7DF327006EDEB0 /* Constant.swift */,
 				B21C1B191EA08015005CB84D /* Main.storyboard */,
 				B21C1B1C1EA08015005CB84D /* Assets.xcassets */,
 				B21C1B1E1EA08015005CB84D /* LaunchScreen.storyboard */,
@@ -234,6 +237,7 @@
 			files = (
 				B21C1B181EA08015005CB84D /* ViewController.swift in Sources */,
 				B21C1B161EA08015005CB84D /* AppDelegate.swift in Sources */,
+				B29F9E891F7DF327006EDEB0 /* Constant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +360,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 78E050FF5514ACD908DBC652 /* Pods-OnlineScorerExample.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 8PJZBHFZQF;
 				INFOPLIST_FILE = OnlineScorerExample/Info.plist;
@@ -371,6 +376,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3D5092F38893C51957A5A9FB /* Pods-OnlineScorerExample.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 8PJZBHFZQF;
 				INFOPLIST_FILE = OnlineScorerExample/Info.plist;

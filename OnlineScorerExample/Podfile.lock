@@ -1,15 +1,15 @@
 PODS:
-  - EZOnlineScorer (0.0.3)
+  - EZOnlineScorer (0.0.4)
 
 DEPENDENCIES:
   - EZOnlineScorer (from `../`)
 
 EXTERNAL SOURCES:
   EZOnlineScorer:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  EZOnlineScorer: 62d82c7d87b95bb1271f82f7c89e30a395cc7cb5
+  EZOnlineScorer: 0bd90480f6f9d9058fec9295b27566761ce4c508
 
 PODFILE CHECKSUM: 9dc6abfc69b3666dd35e7222f37bca32dc9ce34d
 

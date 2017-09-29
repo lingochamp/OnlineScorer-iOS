@@ -387,6 +387,7 @@ static __strong NSData *CRLFCRLF;
 {
     assert(_url);
     NSAssert(_readyState == SR_CONNECTING, @"Cannot call -(void)open on SRWebSocket more than once");
+    SRFastLog(@"Open connection to %@", _url);
 
     _selfRetain = self;
     

@@ -361,8 +361,6 @@ static NSURL *_socketURL;
     EZLog(@"audioReaderDidBeginReading");
     
     if (self.disposal) return;
-
-    [self.audioSocket open];
     
     if ([self.delegate respondsToSelector:@selector(onlineScorerDidBeginRecording:)]) {
         [self.delegate onlineScorerDidBeginRecording:self];

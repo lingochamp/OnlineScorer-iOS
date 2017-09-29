@@ -22,10 +22,26 @@ class ViewController: UIViewController {
     
     lazy var configureButton: UIButton = UIButton(type: .system)
     
-    static let defaultReadAloadText = "I will study English very hard."
-    var readAloadText = ViewController.defaultReadAloadText {
+    enum ScorerType: String {
+        case asr, readAload
+    }
+    
+    var scorerType: ScorerType = .readAload {
         didSet {
-            tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+            if oldValue != scorerType {
+                tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+                switch scorerType {
+                case .asr:
+                    readAloadText = ""
+                case .readAload:
+                    readAloadText = defaultReadAloadText
+                }
+            }
+        }
+    }
+    var readAloadText = defaultReadAloadText {
+        didSet {
+            tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
         }
     }
     var reportDescription = "" {
@@ -72,13 +88,18 @@ class ViewController: UIViewController {
     
     @discardableResult func setupScorer() -> EZOnlineScorerRecorder {
         //setup scorer
-        if readAloadText.characters.count == 0
-        {
-            readAloadText = ViewController.defaultReadAloadText
+        let payload: EZOnlineScorerRecorderPayload
+        switch scorerType {
+        case .readAload:
+            if readAloadText.isEmpty {
+                readAloadText = defaultReadAloadText
+            }
+            payload = EZReadAloudPayload(referenceText: readAloadText)
+        case .asr:
+            payload = EZASRPayload()
         }
         
         reportDescription = ""
-        let payload = EZReadAloudPayload(referenceText: readAloadText)
         let scorer = EZOnlineScorerRecorder(payload: payload, useSpeex: useSpeex)!
         scorer.delegate = self
         self.scorer = scorer
@@ -147,26 +168,31 @@ class ViewController: UIViewController {
     }
     
     func record() {
-        let scorer = self.scorer ?? setupScorer()
+        if scorer?.isRecording ?? false {
+            scorer?.stopScoring()
+        }
+        setupScorer()
         
-        AVAudioSession.sharedInstance().requestRecordPermission { [weak self, weak scorer] (success) in
-            DispatchQueue.main.async {
-                guard let `self` = self else { return }
-                
-                if success {
-                    do {
-                        try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
-                        try AVAudioSession.sharedInstance().setActive(true)
-                        scorer?.record(to: self.recordURL, fileType: kAudioFileWAVEType)
-                    } catch {
-                        let alert = UIAlertController(title: "未能开启录音", message: error.localizedDescription, preferredStyle: .alert)
+        if AVAudioSession.sharedInstance().recordPermission() == .granted {
+            do {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
+                try AVAudioSession.sharedInstance().setActive(true)
+                scorer?.record(to: self.recordURL)
+            } catch {
+                let alert = UIAlertController(title: "未能开启录音", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "好的", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        } else {
+            AVAudioSession.sharedInstance().requestRecordPermission { [weak self] (success) in
+                DispatchQueue.main.async {
+                    guard let `self` = self else { return }
+                    
+                    if !success {
+                        let alert = UIAlertController(title: "未能开启录音", message: "请开启录音权限，否则不能录音", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "好的", style: .default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
                     }
-                } else {
-                    let alert = UIAlertController(title: "未能开启录音", message: "请开启录音权限，否则不能录音", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "好的", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
                 }
             }
         }
@@ -178,13 +204,13 @@ class ViewController: UIViewController {
 extension ViewController: EZOnlineScorerRecorderDelegate {
     func onlineScorerDidBeginRecording(_ scorer: EZOnlineScorerRecorder) {
         DispatchQueue.main.async { [weak self] in
-            self?.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
+            self?.tableView.reloadRows(at: [IndexPath(row: 3, section: 0)], with: .none)
         }
     }
     
     func onlineScorerDidFinishRecording(_ scorer: EZOnlineScorerRecorder) {
         DispatchQueue.main.async { [weak self] in
-            self?.tableView.reloadRows(at: [IndexPath(row: 1, section: 0), IndexPath(row: 2, section: 0)], with: .none)
+            self?.tableView.reloadRows(at: [IndexPath(row: 2, section: 0), IndexPath(row: 3, section: 0)], with: .none)
         }
     }
     
@@ -192,7 +218,7 @@ extension ViewController: EZOnlineScorerRecorderDelegate {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
             
-            self.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
+            self.tableView.reloadRows(at: [IndexPath(row: 3, section: 0)], with: .none)
             self.reportDescription = "\(error)"
         }
     }
@@ -201,7 +227,7 @@ extension ViewController: EZOnlineScorerRecorderDelegate {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
             
-            self.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
+            self.tableView.reloadRows(at: [IndexPath(row: 3, section: 0)], with: .none)
             let reportData = try! JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted])
             let reportString = String(data: reportData, encoding: .utf8)
             self.reportDescription = reportString ?? ""
@@ -209,7 +235,7 @@ extension ViewController: EZOnlineScorerRecorderDelegate {
     }
     
     func onlineScorer(_ scorer: EZOnlineScorerRecorder, didVolumnChange volumn: Float) {
-        if let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) {
+        if let cell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) {
             cell.detailTextLabel?.text = String(format: "%.3f", volumn)
         }
     }
@@ -223,9 +249,9 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 3
+            return 4
         case 1:
-            return 8
+            return 7
         case 2:
             return 1
         default:
@@ -240,14 +266,18 @@ extension ViewController: UITableViewDataSource {
         
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
+          cell.accessoryType = .disclosureIndicator
+          cell.textLabel?.text = "Type"
+          cell.detailTextLabel?.text = scorerType.rawValue
+        case (0, 1):
             cell.accessoryType = .none
             cell.textLabel?.text = readAloadText
             cell.detailTextLabel?.text = ""
-        case (0, 1):
+        case (0, 2):
             cell.accessoryType = .none
             cell.textLabel?.text = "volumn"
             cell.detailTextLabel?.text = ""
-        case (0, 2):
+        case (0, 3):
             cell.accessoryType = .none
             cell.textLabel?.text = "state"
             cell.detailTextLabel?.text = {
@@ -266,7 +296,7 @@ extension ViewController: UITableViewDataSource {
         case (1, 0):
             cell.accessoryType = useSpeex ? .checkmark : .none
             cell.textLabel?.text = "use speex"
-            cell.detailTextLabel?.text = "only work after reset"
+            cell.detailTextLabel?.text = ""
         case (1, 1):
             cell.accessoryType = .none
             cell.textLabel?.text = "record"
@@ -285,13 +315,9 @@ extension ViewController: UITableViewDataSource {
             cell.detailTextLabel?.text = ""
         case (1, 5):
             cell.accessoryType = .none
-            cell.textLabel?.text = "reset scorerRecorder"
-            cell.detailTextLabel?.text = ""
-        case (1, 6):
-            cell.accessoryType = .none
             cell.textLabel?.text = "play"
             cell.detailTextLabel?.text = ""
-        case (1, 7):
+        case (1, 6):
             cell.accessoryType = .none
             cell.textLabel?.text = "export debug log"
             cell.detailTextLabel?.text = ""
@@ -312,7 +338,7 @@ extension ViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 2 || (indexPath.section == 0 && indexPath.row == 0) {
+        if indexPath.section == 2 || (indexPath.section == 0 && indexPath.row == 1) {
             return UITableViewAutomaticDimension
         }
         return 44
@@ -323,13 +349,21 @@ extension ViewController: UITableViewDelegate {
         
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            let alert = UIAlertController(title: "set spoken test", message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: "set scorer type", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "ASR", style: .default, handler: { [weak self] (_) in
+                self?.scorerType = .asr
+            }))
+            alert.addAction(UIAlertAction(title: "ReadAload", style: .default, handler: { [weak self] (_) in
+                self?.scorerType = .readAload
+            }))
+            present(alert, animated: true, completion: nil)
+        case (0, 1):
+            let alert = UIAlertController(title: "set spoken text", message: nil, preferredStyle: .alert)
             alert.addTextField(configurationHandler: nil)
             alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak alert, weak self] (_) in
                 guard let textFields = alert?.textFields, textFields.count == 1 else { return }
                 
                 self?.readAloadText = textFields[0].text!
-                self?.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
             }))
             
             present(alert, animated: true, completion: nil)
@@ -348,10 +382,8 @@ extension ViewController: UITableViewDelegate {
             scorer?.retry()
             self.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
         case (1, 5):
-            setupScorer()
-        case (1, 6):
             play()
-        case (1, 7):
+        case (1, 6):
             EZOnlineScorerRecorder.exportDebugLog { _, logURL in
                 if logURL != nil {
                     DispatchQueue.main.async {
